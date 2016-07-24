@@ -19,7 +19,7 @@
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
-    <IISExpressUseClassicPipelineMode />
+    <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
     <SccProjectName>SAK</SccProjectName>
     <SccLocalPath>SAK</SccLocalPath>
     <SccAuxPath>SAK</SccAuxPath>
@@ -34,6 +34,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PublishDatabaseSettings>&lt;Objects&gt;&lt;ObjectGroup Name="NewConnection1-Deployment" Order="1"&gt;&lt;Destination Path="" /&gt;&lt;Object Type="DbFullSql"&gt;&lt;PreSource Path="&amp;quot%3bData Source=%28LocalDb%29\v11.0%3bAttachDbFilename=|DataDirectory|\aspnet-TaskWebApplication-20160713080828.mdf%3bInitial Catalog=aspnet-TaskWebApplication-20160713080828%3bIntegrated Security=True%3bMultipleActiveResultSets=True&amp;quot%3b" ScriptSchema="True" ScriptData="True" CopyAllFullTextCatalogs="False" DriDefaults="True" /&gt;&lt;Source Path="obj\Debug\AutoScripts\NewConnection1-Deployment_SchemaAndData.sql" Transacted="True" /&gt;&lt;/Object&gt;&lt;/ObjectGroup&gt;&lt;/Objects&gt;</PublishDatabaseSettings>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -291,6 +292,10 @@
     <Compile Include="Migrations\201607211943147_jobStatus.Designer.cs">
       <DependentUpon>201607211943147_jobStatus.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201607242112574_requiredJobName.cs" />
+    <Compile Include="Migrations\201607242112574_requiredJobName.Designer.cs">
+      <DependentUpon>201607242112574_requiredJobName.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -308,6 +313,8 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <None Include="Properties\PublishProfiles\Default Settings %282%29.pubxml" />
+    <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -488,6 +495,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201607211943147_jobStatus.resx">
       <DependentUpon>201607211943147_jobStatus.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607242112574_requiredJobName.resx">
+      <DependentUpon>201607242112574_requiredJobName.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

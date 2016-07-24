@@ -253,3 +253,4 @@ d:\Users\Nuno\Source\Repos\Sacanso\TaskWebApplication\TaskWebApplication\obj\Deb
 d:\Users\Nuno\Source\Repos\Sacanso\TaskWebApplication\TaskWebApplication\obj\Debug\TaskWebApplication.csproj.GenerateResource.Cache
 d:\Users\Nuno\Source\Repos\Sacanso\TaskWebApplication\TaskWebApplication\obj\Debug\TaskWebApplication.dll
 d:\Users\Nuno\Source\Repos\Sacanso\TaskWebApplication\TaskWebApplication\obj\Debug\TaskWebApplication.pdb
+d:\Users\Nuno\Source\Repos\Sacanso\TaskWebApplication\TaskWebApplication\obj\Debug\TaskWebApplication.Migrations.requiredJobName.resources

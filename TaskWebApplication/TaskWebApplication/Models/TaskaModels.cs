@@ -78,6 +78,7 @@ namespace TaskWebApplication.Models
 		public int Id { get; set; }
 
 		[DisplayName("Job Name")]
+    [Required]
 		public string JobName { get; set; }
 
 		public Status? Status { get; set; }
@@ -104,10 +105,11 @@ namespace TaskWebApplication.Models
 		public virtual Job ParentJob { get; set; }
 
 		[Required]
-		[ForeignKey("JobParameter")]
+    [ForeignKey("JobParameter")]
 		public int ParameterId { get; set; }
 		public virtual Parameter JobParameter { get; set; }
-		public string ParameterValue { get; set; }
+    [DisplayName("Parameter Value")]
+    public string ParameterValue { get; set; }
 	}
 
 		public class JobResult

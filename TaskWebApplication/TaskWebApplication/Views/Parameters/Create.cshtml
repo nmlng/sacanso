@@ -32,9 +32,9 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.TaskaId, "TaskaId", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.TaskaId, "Taska", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("TaskaId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownList("TaskaId", null, "-- Please select a Taska --", htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.TaskaId, "", new { @class = "text-danger" })
             </div>
         </div>

@@ -50,9 +50,9 @@ namespace TaskWebApplication.Controllers
 		}
 
 		// GET: Parameters/Create
-		public ActionResult Create()
+		public ActionResult Create(int? TaskaId)
 		{
-			ViewBag.TaskaId = new SelectList(db.Taskas, "Id", "Description");
+			ViewBag.TaskaId = new SelectList(db.Taskas, "Id", "Description", TaskaId);
 			return View();
 		}
 
