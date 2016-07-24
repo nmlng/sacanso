@@ -1,0 +1,101 @@
+﻿@model TaskWebApplication.Models.JobParameters
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+	    <h4>JobParameters</h4>
+
+	    <p>
+		    @Html.ActionLink("Go to Jobs", "Index", new {controller = "Jobs"})
+	    </p>
+
+	    <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.JobId, "JobId", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("JobId", null, "-- Please select a Job --", htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.JobId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ParameterId, "ParameterId", htmlAttributes: new { @class = "control-label col-md-2" })
+	        <div class="col-md-10">
+						<select class="form-control" id="ParameterId" name="ParameterId"><option disabled selected>-- Please select prameter --</option></select>
+		    @*    @Html.DropDownList("ParameterId", null, htmlAttributes: new {@class = "form-control"})*@
+		        @Html.ValidationMessageFor(model => model.ParameterId, "", new {@class = "text-danger"})
+	        </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ParameterValue, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ParameterValue, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ParameterValue, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+}
+
+<!-- jQuery -->
+@Scripts.Render("~/bundles/jquery-3")
+
+<script type="text/javascript">
+	$(document).ready(function () {
+
+		function loadParams(idvalue) {
+			$.ajax({
+				url: '@Url.Action("GetJobParameters")',
+				type: "POST",
+				dataType: "json",
+				contentType: "application/json",
+				data: "{'id':'" + idvalue + "'}",
+				success: function (returneddata) {
+					var options = "";
+					$.each(returneddata, function (i, item) {
+						options += '<option value="' + item['id'] + '">' + item['value'] + '</option>';
+					});
+					$("#ParameterId").html(options);
+				},
+				error: function (xhr, status, error) {
+					alert("Error: in ajax request: " + xhr + "\n" + status + "\n" + error);
+				}
+			}).complete(function () {
+
+			});
+		}
+
+		$('#JobId').on('change', function () {
+			loadParams($(this).val());
+		});
+
+			loadParams($('#JobId').val());
+
+	});
+</script>

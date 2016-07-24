@@ -1,0 +1,45 @@
+﻿@model IEnumerable<TaskWebApplication.Models.Parameter>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Taska Parameters Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ParameterTaska.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ParameterName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ParameterValue)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ParameterTaska.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ParameterName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ParameterValue)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

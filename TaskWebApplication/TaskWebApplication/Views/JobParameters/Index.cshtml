@@ -1,0 +1,54 @@
+﻿@model IEnumerable<TaskWebApplication.Models.JobParameters>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Job Parameter Index</h2>
+
+<p>
+	@Html.ActionLink("Create New", "Create")
+</p>
+
+<p>
+	@Html.ActionLink("Go to Jobs", "Index", new {controller = "Jobs"})
+</p>
+
+<table class="table">
+	<tr>
+		<th>
+			@Html.DisplayNameFor(model => model.ParentJob.JobName)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.JobParameter.ParameterName)
+		</th>
+
+		<th>
+			@Html.DisplayNameFor(model => model.ParameterValue)
+		</th>
+		<th></th>
+	</tr>
+
+@foreach (var item in Model) {
+	<tr>
+		<td>
+			@Html.ActionLink(@Html.DisplayFor(modelItem => item.ParentJob.JobName).ToString(),
+							"Index", new { controller = "SubTaskas", id = item.ParentJob.TaskaId})</td>
+		<td>
+			@Html.DisplayFor(modelItem => item.JobParameter.ParameterName)
+		</td>
+
+		<td>
+			@Html.ActionLink(@Html.DisplayFor(modelItem => item.ParameterValue).ToString(),
+							"Index", new { controller = "Parameters", id = item.JobId })
+		</td>
+		<td>
+			@Html.ActionLink("Edit", "Edit", new {id = item.Id}) |
+			@Html.ActionLink("Details", "Details", new {id = item.Id}) |
+			@Html.ActionLink("Delete", "Delete", new {id = item.Id}) |
+			@Html.ActionLink("Add Parameter", "Create", new { controller = "JobParameters", JobId = item.JobId })
+		</td>
+	</tr>
+}
+
+</table>

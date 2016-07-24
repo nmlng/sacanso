@@ -1,0 +1,19 @@
+﻿@using TaskWebApplication.Controllers
+@using TaskWebApplication.Models
+@model IEnumerable<TaskWebApplication.Models.Taska>
+
+@{
+    ViewBag.Title = "ResetTaska";
+}
+
+<h2>Reset TASKA  @ViewData["id"] </h2>
+
+
+<!-- jQuery -->
+@Scripts.Render("~/bundles/jquery-3")
+
+<script>
+  $(document).ready(function () {
+        window.location.href = "/Taskas/Index";
+});
+</script>
