@@ -300,6 +300,10 @@
     <Compile Include="Migrations\201607252203093_taskaDescriptionRequired.Designer.cs">
       <DependentUpon>201607252203093_taskaDescriptionRequired.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201607252305192_moreRequiredFields.cs" />
+    <Compile Include="Migrations\201607252305192_moreRequiredFields.Designer.cs">
+      <DependentUpon>201607252305192_moreRequiredFields.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -508,6 +512,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201607252203093_taskaDescriptionRequired.resx">
       <DependentUpon>201607252203093_taskaDescriptionRequired.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607252305192_moreRequiredFields.resx">
+      <DependentUpon>201607252305192_moreRequiredFields.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

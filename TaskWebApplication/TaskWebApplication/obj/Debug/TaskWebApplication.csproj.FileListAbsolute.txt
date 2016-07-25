@@ -341,3 +341,5 @@ C:\Users\Nuno\Source\Repos\Sacanso\TaskWebApplication\TaskWebApplication\obj\Deb
 C:\Users\Nuno\Source\Repos\Sacanso\TaskWebApplication\TaskWebApplication\obj\Debug\TaskWebApplication.dll
 C:\Users\Nuno\Source\Repos\Sacanso\TaskWebApplication\TaskWebApplication\obj\Debug\TaskWebApplication.pdb
 C:\Users\Nuno\Source\Repos\Sacanso\TaskWebApplication\TaskWebApplication\obj\Debug\TaskWebApplication.Migrations.taskaDescriptionRequired.resources
+D:\Users\Nuno\Source\Repos\Sacanso\TaskWebApplication\TaskWebApplication\obj\Debug\TaskWebApplication.Migrations.taskaDescriptionRequired.resources
+D:\Users\Nuno\Source\Repos\Sacanso\TaskWebApplication\TaskWebApplication\obj\Debug\TaskWebApplication.Migrations.moreRequiredFields.resources

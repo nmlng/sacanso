@@ -28,10 +28,13 @@
                item.Status.ToString() == "SUCCESS" ? "#8F8" : null;
 
     <tr>
-        <td>
-            @Html.ActionLink(@Html.DisplayFor(modelItem => item.Description).ToString(),
-                "Index", new { controller = "SubTaskas", id = item.Id })						
-        </td>
+      <td>
+        @if (item.Description != null)
+        {
+          @Html.ActionLink(@Html.DisplayFor(modelItem => item.Description).ToString(),
+          "Index", new { controller = "SubTaskas", id = item.Id })
+        }
+      </td>
       <td style="background-color:@color">
         @Html.DisplayFor(modelItem => item.Status)
       </td>
