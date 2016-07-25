@@ -18,6 +18,7 @@ namespace TaskWebApplication.Models
 		public int Id { get; set; }
 
 		[DisplayName("Taska Description")]
+		[Required]
 		public string Description { get; set; }
 		public Status? Status { get; set; }
 

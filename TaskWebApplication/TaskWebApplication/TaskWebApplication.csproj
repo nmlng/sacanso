@@ -296,6 +296,10 @@
     <Compile Include="Migrations\201607242112574_requiredJobName.Designer.cs">
       <DependentUpon>201607242112574_requiredJobName.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201607252203093_taskaDescriptionRequired.cs" />
+    <Compile Include="Migrations\201607252203093_taskaDescriptionRequired.Designer.cs">
+      <DependentUpon>201607252203093_taskaDescriptionRequired.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -501,6 +505,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201607242112574_requiredJobName.resx">
       <DependentUpon>201607242112574_requiredJobName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607252203093_taskaDescriptionRequired.resx">
+      <DependentUpon>201607252203093_taskaDescriptionRequired.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
