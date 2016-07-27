@@ -9,7 +9,7 @@
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
-
+ 
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/
@@ -18,7 +18,7 @@
 x64/
 x86/
 build/
-bld/
+bl/d
 [Bb]in/
 [Oo]bj/
 
@@ -66,8 +66,7 @@ artifacts/
 *.pidb
 *.svclog
 *.scc
-*.mdf
-*.ldf
+
 
 # Chutzpah Test files
 _Chutzpah*
