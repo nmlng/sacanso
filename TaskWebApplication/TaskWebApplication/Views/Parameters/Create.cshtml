@@ -47,10 +47,30 @@
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
+<div id="linkamos">
+
 </div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+
+<!-- jQuery -->
+@Scripts.Render("~/bundles/jquery-3")
+
+<script type="text/javascript">
+  $(document).ready(function () {
+
+    function makelink(idvalue) {
+      var link = '@Html.ActionLink("Back to List", "Index", new {id = -1})';
+      link = link.replace('-1', idvalue);
+      $('#linkamos').html(link);
+    }
+
+    $('#TaskaId').on('change', function () {
+      makelink($(this).val());
+    });
+
+    makelink($('#TaskaId').val());
+  });
+</script>
