@@ -292,7 +292,7 @@ namespace TaskWebApplication.Controllers
       p.StartInfo.UseShellExecute = false;
       string stdout = String.Empty;
       string stderr = String.Empty;
-      int result = 0;
+      int returned = 0;
 
       try
       {
@@ -300,14 +300,14 @@ namespace TaskWebApplication.Controllers
         stdout = p.StandardOutput.ReadToEnd();
         stderr = p.StandardError.ReadToEnd();
         p.WaitForExit();
-        result = p.ExitCode;
+        returned = p.ExitCode;
       }
       catch (Exception e)
       {
         stderr = e.Message;
-        result = -1;
+        returned = -1;
       }
-      return new Tuple<string, string, int>(stdout, stderr, result);
+      return new Tuple<string, string, int>(stdout, stderr, returned);
     }
 
 
@@ -330,11 +330,11 @@ namespace TaskWebApplication.Controllers
       foreach (JobResult jobResult in jobResults)
       {
         System.Diagnostics.Debug.Write("Running: " + jobResult.Command + "\n");
-        Tuple<string, string, int> returned = RunCommanOnSever(jobResult.Command);
-        string message = returned.Item1.ToString() + returned.Item2.ToString();
+        Tuple<string, string, int> resultTuple = RunCommanOnSever(jobResult.Command);
+        string message = resultTuple.Item1.ToString() + resultTuple.Item2.ToString();
         jobResult.ErrorMessage = message;
         //				System.Diagnostics.Debug.Write(message);
-        if (returned.Item3 == 0)
+        if (resultTuple.Item3 == 0)
           jobResult.Status = Status.SUCCESS;
         else
         {
