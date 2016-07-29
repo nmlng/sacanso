@@ -125,7 +125,7 @@ namespace TaskWebApplication.Controllers
       var subTaskas = db.SubTaskas.Include(s => s.ParentTaska)
         .Where(item => item.TaskaId == id)
         .OrderBy(x => x.TaskaId)
-        .ThenBy(x => x.Id);
+        .ThenBy(x => x.order);
       return subTaskas;
     }
 

@@ -70,6 +70,8 @@ namespace TaskWebApplication.Models
     public int TaskaId { get; set; }
     public virtual Taska ParentTaska { get; set; }
 
+    public int order { get; set; }
+
     public SubTaska()
     {
       this.Status = Models.Status.READY;

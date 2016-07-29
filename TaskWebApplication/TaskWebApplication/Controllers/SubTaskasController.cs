@@ -23,14 +23,14 @@ namespace TaskWebApplication.Controllers
         var subTaskas = db.SubTaskas.Include(s => s.ParentTaska)
           .Where(item => item.TaskaId == id)
           .OrderBy(x => x.TaskaId)
-          .ThenBy(x => x.Id);
+          .ThenBy(x => x.order);
         return View(subTaskas.ToList());
       }
       else
       {
         var subTaskas = db.SubTaskas.Include(s => s.ParentTaska)
           .OrderBy(x => x.TaskaId)
-          .ThenBy(x => x.Id); ;
+          .ThenBy(x => x.order); ;
         return View(subTaskas.ToList());
       }
     }
@@ -62,7 +62,7 @@ namespace TaskWebApplication.Controllers
     // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public ActionResult Create([Bind(Include = "Id,Description,Command,ErrorMessage,Status,TaskaId")] SubTaska subTaska)
+    public ActionResult Create([Bind(Include = "Id,Description,Command,ErrorMessage,Status, order,TaskaId")] SubTaska subTaska)
     {
       if (ModelState.IsValid)
       {
@@ -97,7 +97,7 @@ namespace TaskWebApplication.Controllers
     // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public ActionResult Edit([Bind(Include = "Id,Description,Command,ErrorMessage,Status,TaskaId")] SubTaska subTaska)
+    public ActionResult Edit([Bind(Include = "Id,Description,Command,ErrorMessage,Status, order,TaskaId")] SubTaska subTaska)
     {
       if (ModelState.IsValid)
       {
