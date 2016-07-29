@@ -234,13 +234,14 @@ namespace TaskWebApplication.Controllers
 
     private static string UpdateCommand(string command, IQueryable<Parameter> taskaParameters)
     {
-      foreach (Parameter parameter in taskaParameters)
-      {
-        string pattern = @"(\{{2}\s*" + parameter.ParameterName + @"\s*\}{2})";
-        if (command!=null)
-           if (Regex.Matches(command, pattern).Count > 0)
-              command = Regex.Replace(command, pattern, parameter.ParameterValue);
-      }
+      if (command!=null)
+        foreach (Parameter parameter in taskaParameters)
+        {
+          string pattern = @"(\{{2}\s*" + parameter.ParameterName + @"\s*\}{2})";
+        
+             if (Regex.Matches(command, pattern).Count > 0)
+                command = Regex.Replace(command, pattern, parameter.ParameterValue);
+        }
       return command;
     }
 
