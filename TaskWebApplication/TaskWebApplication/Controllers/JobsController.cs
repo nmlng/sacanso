@@ -214,8 +214,9 @@ namespace TaskWebApplication.Controllers
         string pattern = @"(\{{2}\s*" + parameter.ParameterName + @"\s*\}{2})";
         string efectiveValue = jobParameters.ContainsKey(parameter.ParameterName) ?
           jobParameters[parameter.ParameterName] : parameter.ParameterValue;
-        if (Regex.Matches(command, pattern).Count > 0)
-          command = Regex.Replace(command, pattern, efectiveValue);
+        if (command != null)
+           if (Regex.Matches(command, pattern).Count > 0)
+              command = Regex.Replace(command, pattern, efectiveValue);
       }
       return command;
     }
