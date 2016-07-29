@@ -237,8 +237,9 @@ namespace TaskWebApplication.Controllers
       foreach (Parameter parameter in taskaParameters)
       {
         string pattern = @"(\{{2}\s*" + parameter.ParameterName + @"\s*\}{2})";
-        if (Regex.Matches(command, pattern).Count > 0)
-          command = Regex.Replace(command, pattern, parameter.ParameterValue);
+        if (command!=null)
+           if (Regex.Matches(command, pattern).Count > 0)
+              command = Regex.Replace(command, pattern, parameter.ParameterValue);
       }
       return command;
     }
