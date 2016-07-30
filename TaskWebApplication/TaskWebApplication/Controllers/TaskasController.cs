@@ -234,7 +234,7 @@ namespace TaskWebApplication.Controllers
 
     private static string UpdateCommand(string command, IQueryable<Parameter> taskaParameters)
     {
-      if (command!=null)
+      if (command!=null) 
         foreach (Parameter parameter in taskaParameters)
         {
           string pattern = @"(\{{2}\s*" + parameter.ParameterName + @"\s*\}{2})";
