@@ -137,6 +137,28 @@ namespace TaskWebApplication.Controllers
           new RouteValueDictionary(new { Id = subTaska.TaskaId }));
     }
 
+
+    [HttpPost]
+    public ActionResult UpdateModelOrder(Dictionary<string, string> mapping)
+    {
+      int taskaId = int.Parse(mapping["taskaId"]);
+      var subTaskas = db.SubTaskas
+        .Include(s => s.ParentTaska)
+        .Where(item => item.TaskaId == taskaId);
+
+      foreach (var subtaska in subTaskas)
+      {
+        int neworder = int.Parse(mapping[subtaska.order.ToString()]);
+        subtaska.order = neworder;
+      }
+
+      db.SaveChanges();
+
+      return RedirectToAction("Index",
+           new RouteValueDictionary(new { Id = taskaId }));
+    }
+
+
     protected override void Dispose(bool disposing)
     {
       if (disposing)

@@ -40,7 +40,7 @@
 
 		<td>
 			@Html.ActionLink(@Html.DisplayFor(modelItem => item.ParameterValue).ToString(),
-							"Index", new { controller = "Parameters", id = item.JobId })
+							"Index", new { controller = "JobParameters", id = item.JobId })
 		</td>
 		<td>
 			@Html.ActionLink("Edit", "Edit", new {id = item.Id}) |

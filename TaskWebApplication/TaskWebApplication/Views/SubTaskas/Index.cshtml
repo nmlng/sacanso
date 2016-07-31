@@ -1,52 +1,58 @@
 ﻿@model IEnumerable<TaskWebApplication.Models.SubTaska>
 
-  @{
+@{
   ViewBag.Title = "Index";
-  }
+}
 
-  <h2>Sub-Taskas Index</h2>
+<h2>Sub-Taskas Index</h2>
 
-  <p>
-    @Html.ActionLink("Create New", "Create")
-  </p>
-  <p>
-    @Html.ActionLink("Go to Taskas", "Index", new { controller = "Taskas" }) |
-    @Html.ActionLink("Go to Jobs", "Index", new { controller = "Jobs" })
-  </p>
-
+<p>
+  @Html.ActionLink("Create New", "Create")
+</p>
+<p>
+  @Html.ActionLink("Go to Taskas", "Index", new { controller = "Taskas" }) |
+  @Html.ActionLink("Go to Jobs", "Index", new { controller = "Jobs" })
+</p>
 
 
 <div id="content">
 
   <table class="table" id="diagnosis_list">
-    <tr>
-      <th>Priority</th>
-      <th>
-        @Html.DisplayNameFor(model => model.ParentTaska.Description)
-      </th>
-      <th>
-        @Html.DisplayNameFor(model => model.Description)
-      </th>
-      <th>
-        @Html.DisplayNameFor(model => model.Command)
-      </th>
-      <th>
-        @Html.DisplayNameFor(model => model.ErrorMessage)
-      </th>
-      <th>
-        @Html.DisplayNameFor(model => model.Status)
-      </th>
-      <th>
-        @Html.DisplayNameFor(model => model.order)
-      </th>
-    </tr>
-
+    <thead>
+      <tr>
+        <th style="display:none;">Priority</th>
+        <th>
+          @Html.DisplayNameFor(model => model.ParentTaska.Description)
+        </th>
+        <th>
+          @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+          @Html.DisplayNameFor(model => model.Command)
+        </th>
+        <th>
+          @Html.DisplayNameFor(model => model.ErrorMessage)
+        </th>
+        <th>
+          @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th>
+          @Html.DisplayNameFor(model => model.order)
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+    
+    @{
+      int taskaId = 0;
+    }
     @foreach (var item in Model)
     {
+      taskaId = item.TaskaId;
       string color = item.Status.ToString() == "ERROR" ? "#F88" :
         item.Status.ToString() == "SUCCESS" ? "#8F8" : null;
       <tr>
-        <td class='priority'>
+        <td style="display: none;" class='priority'>
           @Html.DisplayFor(modelItem => item.order)
         </td>
         <td>
@@ -74,7 +80,7 @@
           @Html.DisplayFor(modelItem => item.Status)
         </td>
 
-        <td>
+        <td class='order'>
           @Html.DisplayFor(modelItem => item.order)
         </td>
 
@@ -86,10 +92,10 @@
         </td>
       </tr>
     }
-
+    </tbody>
   </table>
 </div>
-  
+
 
 <!-- Bootstrap CSS -->
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet" />
@@ -100,45 +106,71 @@
 <!-- jQuery UI CSS -->
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
 
+
 <script type="text/javascript">
-
-    $(document).ready(function () {
-      //Helper function to keep table row from collapsing when being sorted
-      var fixHelperModified = function (e, tr) {
-        var $originals = tr.children();
-        var $helper = tr.clone();
-        $helper.children().each(function (index) {
-          $(this).width($originals.eq(index).width());
-        });
-        return $helper;
-      };
-
-      //Make diagnosis table sortable
-      $("#diagnosis_list tbody").sortable({
-        helper: fixHelperModified,
-        stop: function (event, ui) { renumber_table('#diagnosis_list') }
-      }).disableSelection();
-
-
-      //Delete button in table rows
-      $('table').on('click', '.btn-delete', function () {
-        var tableID = '#' + $(this).closest('table').attr('id');
-        varr = confirm('Delete this item?');
-        if (r) {
-          $(this).closest('tr').remove();
-          renumber_table(tableID);
-        }
+  $(document).ready(function() {
+    //Helper function to keep table row from collapsing when being sorted
+    var fixHelperModified = function(e, tr) {
+      var $originals = tr.children();
+      var $helper = tr.clone();
+      $helper.children().each(function(index) {
+        $(this).width($originals.eq(index).width());
       });
+      return $helper;
+    };
 
+    //Make diagnosis table sortable
+    $("#diagnosis_list tbody").sortable({
+      helper: fixHelperModified,
+      stop: function(event, ui) { renumber_table('#diagnosis_list') }
+    }).disableSelection();
+
+
+    //Delete button in table rows
+    $('table').on('click', '.btn-delete', function() {
+      var tableID = '#' + $(this).closest('table').attr('id');
+      var r = confirm('Delete this item?');
+      if (r) {
+        $(this).closest('tr').remove();
+        renumber_table(tableID);
+      }
     });
 
-    //Renumber table rows
-    function renumber_table(tableID) {
-      $(tableID + " tr").each(function () {
-        count = $(this).parent().children().index($(this)) + 1;
-        $(this).find('.priority').html(count);
-      });
-    }
+  });
+
+  //Renumber table rows
+  function renumber_table(tableID) {
+    $(tableID + " tr").each(function() {
+      var count = $(this).parent().children().index($(this)) + 1;
+      $(this).find('.priority').html(count);
+    });
+    var index_mapping = get_indexes_map(tableID);
+    updateModel(index_mapping);
+  }
+
+  function get_indexes_map(tableID) {
+    index_mapping = { 'taskaId':  "@taskaId" };
+    $(tableID + " tbody tr").each(function () {
+      var priority = $(this).find('td.priority').text().trim();
+      var order = $(this).find('td.order').text().trim();
+      index_mapping[String(order)] = priority;
+    });
+    return index_mapping;
+  }
+
+  function updateModel(index_mapping) {
+    var data = JSON.stringify({'mapping': index_mapping});
+    $.ajax({
+      url: '@Url.Action("UpdateModelOrder")',
+      type: "POST",
+      dataType: "json",
+      contentType: "application/json",
+      data:  data
+    }).always(function () {
+      window.location.href = '@Url.Action("Index")';
+    });
+  }
+
 </script>
 
 <style type="text/css">
@@ -147,10 +179,8 @@
   }
 
     .ui-sortable tr:hover {
-      background: rgba(244,251,17,0.45);
+      background: rgba(200,150,250,0.45);
     }
 </style>
-
-
 
 
