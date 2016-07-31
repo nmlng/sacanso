@@ -42,13 +42,9 @@
       </tr>
     </thead>
     <tbody>
-    
-    @{
-      int taskaId = 0;
-    }
+
     @foreach (var item in Model)
     {
-      taskaId = item.TaskaId;
       string color = item.Status.ToString() == "ERROR" ? "#F88" :
         item.Status.ToString() == "SUCCESS" ? "#8F8" : null;
       <tr>
@@ -97,21 +93,27 @@
 </div>
 
 
-<!-- Bootstrap CSS -->
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet" />
+<!-- Bootstrap CSS
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet"/>
+-->
+
+<!-- jQuery
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
+-->
+
+<!-- jQuery UI CSS
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+-->
+
 
 <!-- jQuery -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
-
-<!-- jQuery UI CSS -->
-<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+@Scripts.Render("~/bundles/jquery-3")
+<!-- jQuery-ui -->
+@Scripts.Render("~/bundles/jquery-ui")
 
 
 <script type="text/javascript">
   $(document).ready(function () {
-
-//    renumber_table('#diagnosis_list');
-
 
     //Helper function to keep table row from collapsing when being sorted
     var fixHelperModified = function(e, tr) {
@@ -124,11 +126,11 @@
     };
 
     //Make diagnosis table sortable
-    $("#diagnosis_list tbody").sortable({
-      helper: fixHelperModified,
-      stop: function(event, ui) { renumber_table('#diagnosis_list') }
-    }).disableSelection();
-
+    if (@ViewBag.taskaId != null)
+      $("#diagnosis_list tbody").sortable({
+        helper: fixHelperModified,
+        stop: function(event, ui) { renumber_table('#diagnosis_list') }
+      }).disableSelection();
 
     //Delete button in table rows
     $('table').on('click', '.btn-delete', function() {
@@ -153,7 +155,7 @@
   }
 
   function get_indexes_mapping(tableID) {
-    index_mapping = { 'taskaId':  "@taskaId" };
+    index_mapping = {};
     $(tableID + " tbody tr").each(function () {
       var priority = $(this).find('td.priority').text().trim();
       var order = $(this).find('td.order').text().trim();
@@ -164,13 +166,13 @@
   }
 
   function update_model(index_mapping) {
-    var data = JSON.stringify({ 'mapping': index_mapping });
+    var outdata = JSON.stringify({'taskaId':"@ViewBag.taskaId", 'mapping': index_mapping });
     var ajax_settings = {
       url: '@Url.Action("UpdateModelOrder")',
       type: "POST",
       dataType: "json",
       contentType: "application/json",
-      data: data,
+      data: outdata,
       success: function (returneddata) {
         if (returneddata !== 'ok')
           alert(returneddata);
@@ -182,9 +184,8 @@
     $.ajax(ajax_settings);
   }
 
-
-
 </script>
+
 
 <style type="text/css">
   .ui-sortable tr {

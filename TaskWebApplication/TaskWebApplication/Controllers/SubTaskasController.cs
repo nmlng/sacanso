@@ -18,6 +18,7 @@ namespace TaskWebApplication.Controllers
     // GET: SubTaskas
     public ActionResult Index(int? id)
     {
+      ViewBag.taskaId = id;
       if (id != null)
       {
         var subTaskas = db.SubTaskas.Include(s => s.ParentTaska)
@@ -30,7 +31,7 @@ namespace TaskWebApplication.Controllers
       {
         var subTaskas = db.SubTaskas.Include(s => s.ParentTaska)
           .OrderBy(x => x.TaskaId)
-          .ThenBy(x => x.order); ;
+          .ThenBy(x => x.order);
         return View(subTaskas.ToList());
       }
     }
@@ -139,9 +140,8 @@ namespace TaskWebApplication.Controllers
 
 
     [HttpPost]
-    public JsonResult UpdateModelOrder(Dictionary<string, string> mapping)
+    public JsonResult UpdateModelOrder(int taskaId, Dictionary<string, string> mapping)
     {
-      int taskaId = int.Parse(mapping["taskaId"]);
       var subTaskas = db.SubTaskas
         .Include(s => s.ParentTaska)
         .Where(item => item.TaskaId == taskaId);
