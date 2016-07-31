@@ -88,7 +88,7 @@
           @Html.ActionLink("Edit", "Edit", new {id = item.Id}) |
           @Html.ActionLink("Details", "Details", new {id = item.Id}) |
           @Html.ActionLink("Delete", "Delete", new {id = item.Id}) |
-          @Html.ActionLink("Add New", "Create", new {controller = "SubTaskas", TaskaId = item.TaskaId})
+          @Html.ActionLink("Add New", "Create", new {controller = "SubTaskas", item.TaskaId})
         </td>
       </tr>
     }
@@ -108,7 +108,11 @@
 
 
 <script type="text/javascript">
-  $(document).ready(function() {
+  $(document).ready(function () {
+
+//    renumber_table('#diagnosis_list');
+
+
     //Helper function to keep table row from collapsing when being sorted
     var fixHelperModified = function(e, tr) {
       var $originals = tr.children();
@@ -144,32 +148,41 @@
       var count = $(this).parent().children().index($(this)) + 1;
       $(this).find('.priority').html(count);
     });
-    var index_mapping = get_indexes_map(tableID);
-    updateModel(index_mapping);
+    var index_mapping = get_indexes_mapping(tableID);
+    update_model(index_mapping);
   }
 
-  function get_indexes_map(tableID) {
+  function get_indexes_mapping(tableID) {
     index_mapping = { 'taskaId':  "@taskaId" };
     $(tableID + " tbody tr").each(function () {
       var priority = $(this).find('td.priority').text().trim();
       var order = $(this).find('td.order').text().trim();
-      index_mapping[String(order)] = priority;
+      index_mapping[order] = priority;
+      $(this).find('td.order').text(priority);
     });
     return index_mapping;
   }
 
-  function updateModel(index_mapping) {
-    var data = JSON.stringify({'mapping': index_mapping});
-    $.ajax({
+  function update_model(index_mapping) {
+    var data = JSON.stringify({ 'mapping': index_mapping });
+    var ajax_settings = {
       url: '@Url.Action("UpdateModelOrder")',
       type: "POST",
       dataType: "json",
       contentType: "application/json",
-      data:  data
-    }).always(function () {
-      window.location.href = '@Url.Action("Index")';
-    });
+      data: data,
+      success: function (returneddata) {
+        if (returneddata !== 'ok')
+          alert(returneddata);
+      },
+      error: function (xhr, status, error) {
+        alert("Error: in ajax request: " + xhr + "\n" + status + "\n" + error);
+      }
+    }
+    $.ajax(ajax_settings);
   }
+
+
 
 </script>
 

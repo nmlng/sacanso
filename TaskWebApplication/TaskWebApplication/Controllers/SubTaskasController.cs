@@ -139,23 +139,27 @@ namespace TaskWebApplication.Controllers
 
 
     [HttpPost]
-    public ActionResult UpdateModelOrder(Dictionary<string, string> mapping)
+    public JsonResult UpdateModelOrder(Dictionary<string, string> mapping)
     {
       int taskaId = int.Parse(mapping["taskaId"]);
       var subTaskas = db.SubTaskas
         .Include(s => s.ParentTaska)
         .Where(item => item.TaskaId == taskaId);
 
-      foreach (var subtaska in subTaskas)
+      try
       {
-        int neworder = int.Parse(mapping[subtaska.order.ToString()]);
-        subtaska.order = neworder;
+        foreach (var subtaska in subTaskas)
+        {
+          int neworder = int.Parse(mapping[subtaska.order.ToString()]);
+          subtaska.order = neworder;
+        }
+        db.SaveChanges();
       }
-
-      db.SaveChanges();
-
-      return RedirectToAction("Index",
-           new RouteValueDictionary(new { Id = taskaId }));
+      catch (Exception e)
+      {
+        return Json("Server error: " + e.Message);
+      }
+      return Json("ok");
     }
 
 
