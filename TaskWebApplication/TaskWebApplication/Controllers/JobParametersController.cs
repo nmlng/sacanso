@@ -41,7 +41,7 @@ namespace TaskWebApplication.Controllers
       }
     }
 
-    // GET: JobParameters/Details/5
+    // GET: JobParameters/Details/5 
     public ActionResult Details(int? id)
     {
       if (id == null)
