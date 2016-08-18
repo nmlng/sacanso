@@ -309,6 +309,10 @@
     <Compile Include="Migrations\201607291337323_subtaskasOrder.Designer.cs">
       <DependentUpon>201607291337323_subtaskasOrder.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201608032144100_tabelaChaves.cs" />
+    <Compile Include="Migrations\201608032144100_tabelaChaves.Designer.cs">
+      <DependentUpon>201608032144100_tabelaChaves.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -538,6 +542,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201607291337323_subtaskasOrder.resx">
       <DependentUpon>201607291337323_subtaskasOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608032144100_tabelaChaves.resx">
+      <DependentUpon>201608032144100_tabelaChaves.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
