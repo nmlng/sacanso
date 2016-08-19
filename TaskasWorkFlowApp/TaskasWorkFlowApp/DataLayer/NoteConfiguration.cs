@@ -9,12 +9,13 @@ using TaskasWorkFlowApp.Models;
 
 namespace TaskasWorkFlowApp.DataLayer
 {
-  public class MessageConfiguration : EntityTypeConfiguration<Message>
+  public class NoteConfiguration : EntityTypeConfiguration<Note>
   {
-    public MessageConfiguration()
+    public NoteConfiguration()
     {
-      Property(m => m.Id).HasColumnName("MessageId");
+      Property(m => m.Id).HasColumnName("NoteId");
 
+      HasRequired(m => m.Taska).WithMany().WillCascadeOnDelete(false);
       HasRequired(m => m.TaskaRun).WithMany().WillCascadeOnDelete(false);
 
     }

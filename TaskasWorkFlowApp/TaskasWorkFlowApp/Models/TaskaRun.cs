@@ -7,37 +7,30 @@ using TreeUtility;
 
 namespace TaskasWorkFlowApp.Models
 {
-  public class TaskaRun : ITreeNode<TaskaRun>
+  public class TaskaRun 
   {
-    public int Id { get; set; }
 
-    private int? _parentTaskaRunId;
-
-    [Display(Name = "Parent TaskaRun")]
-    public int? ParentTaskaRunId
+    public TaskaRun()
     {
-      get { return _parentTaskaRunId; }
-      set
-      {
-        if (Id == value)
-          throw new InvalidOperationException("A taskaRun cannot have itself as its parent.");
-
-        _parentTaskaRunId = value;
-      }
+      ParenTaskaRuns = new HashSet<TaskaRun>();
+      ChildTaskaRuns = new HashSet<TaskaRun>();
     }
 
-    [Required(ErrorMessage = "You must enter a taska name.")]
-    [StringLength(20, ErrorMessage = "Taska names must be 20 characters or shorter.")]
+    public int Id { get; set; }
+
+    [Required(ErrorMessage = "You must enter a taskaRun name.")]
+    [StringLength(20, ErrorMessage = "TaskaRun names must be 20 characters or shorter.")]
     [Display(Name = "TaskaRun")]
     public string TaskaRunName { get; set; }
     public Status Status { get; set; }
-    public virtual TaskaRun Parent { get; set; }
-    public IList<TaskaRun> Children { get; set; }
-
 
     public virtual Taska Taska { get; set; }
     [Display(Name = "Taska")]
     public int TaskaId { get; set; }
+
+    public ICollection<TaskaRun> ParenTaskaRuns { get; set; }
+    public ICollection<TaskaRun> ChildTaskaRuns { get; set; }
+
   }
 
   public enum Status

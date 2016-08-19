@@ -28,13 +28,13 @@ namespace TaskasWorkFlowApp.Models
 
         public DbSet<Taska> Taskas { get; set; }
         public DbSet<TaskaRun> TaskaRuns { get; set; }
-        public DbSet<Message> Messages { get; set; }
+        public DbSet<Note> Notes { get; set; }
 
     protected override void OnModelCreating(DbModelBuilder modelBuilder)
       {
         modelBuilder.Configurations.Add(new TaskaConfiguration());
         modelBuilder.Configurations.Add(new TaskaRunConfiguration());
-        modelBuilder.Configurations.Add(new MessageConfiguration());   
+        modelBuilder.Configurations.Add(new NoteConfiguration());   
 
         base.OnModelCreating(modelBuilder);
       }
