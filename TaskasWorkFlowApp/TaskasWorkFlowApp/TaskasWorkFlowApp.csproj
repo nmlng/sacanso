@@ -201,6 +201,8 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="DataLayer\ParameterRunConfiguration.cs" />
+    <Compile Include="DataLayer\ParameterConfiguration.cs" />
     <Compile Include="DataLayer\NoteConfiguration.cs" />
     <Compile Include="DataLayer\TaskaRunConfiguration.cs" />
     <Compile Include="DataLayer\TaskaConfiguration.cs" />
@@ -227,11 +229,17 @@
     <Compile Include="Migrations\201608191636326_taskaRun1.Designer.cs">
       <DependentUpon>201608191636326_taskaRun1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201608192108403_parameter_and_parameterRun.cs" />
+    <Compile Include="Migrations\201608192108403_parameter_and_parameterRun.Designer.cs">
+      <DependentUpon>201608192108403_parameter_and_parameterRun.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ITreeNodeDotNet3.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\ParameterRun.cs" />
+    <Compile Include="Models\Parameter.cs" />
     <Compile Include="Models\Note.cs" />
     <Compile Include="Models\TaskaRun.cs" />
     <Compile Include="Models\Taska.cs" />
@@ -341,6 +349,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201608191636326_taskaRun1.resx">
       <DependentUpon>201608191636326_taskaRun1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608192108403_parameter_and_parameterRun.resx">
+      <DependentUpon>201608192108403_parameter_and_parameterRun.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
