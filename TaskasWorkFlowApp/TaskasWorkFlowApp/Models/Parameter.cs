@@ -11,6 +11,7 @@ namespace TaskasWorkFlowApp.Models
   {
     public int Id { get; set; }
     public string ParameterName { get; set; }
+    public string ParameterDescription { get; set; }
     public ParameterType ParameterType { get; set; }
 
     public virtual Taska Taska { get; set; }
