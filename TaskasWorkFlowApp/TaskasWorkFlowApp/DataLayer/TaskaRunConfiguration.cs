@@ -13,20 +13,16 @@ namespace TaskasWorkFlowApp.DataLayer
   {
     public TaskaRunConfiguration()
     {
-      Property(tr => tr.Id).HasColumnName("TaskaRunId");
+      Property(c => c.Id).HasColumnName("TaskaRunId");
 
-      Property(tr => tr.TaskaRunName)
-          .HasMaxLength(20)
-          .IsRequired()
-          .HasColumnAnnotation("Index",
-              new IndexAnnotation(new IndexAttribute("AK_Taska_TaskaRunName") { IsUnique = true }));
-
-      HasOptional(tr => tr.Parent)
-          .WithMany(tr => tr.Children)
-          .HasForeignKey(tr => tr.ParentTaskaRunId)
-          .WillCascadeOnDelete(false);
-
-      HasRequired(tr => tr.Taska).WithMany().WillCascadeOnDelete(false);
+      HasMany(c => c.ParenTaskaRuns)
+          .WithMany(c => c.ChildTaskaRuns)
+          .Map(m =>
+          {
+            m.MapLeftKey("ChildTaskaRunId");
+            m.MapRightKey("ParentTaskaRunId");
+            m.ToTable("ParentChildTaskaRun");
+          });
     }
   }
 }
