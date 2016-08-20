@@ -213,6 +213,10 @@
     <Compile Include="Migrations\201608201715133_init_all.Designer.cs">
       <DependentUpon>201608201715133_init_all.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201608202321198_correct_ParameterRun_ParameterVAlue.cs" />
+    <Compile Include="Migrations\201608202321198_correct_ParameterRun_ParameterVAlue.Designer.cs">
+      <DependentUpon>201608202321198_correct_ParameterRun_ParameterVAlue.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -317,6 +321,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201608201715133_init_all.resx">
       <DependentUpon>201608201715133_init_all.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608202321198_correct_ParameterRun_ParameterVAlue.resx">
+      <DependentUpon>201608202321198_correct_ParameterRun_ParameterVAlue.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
