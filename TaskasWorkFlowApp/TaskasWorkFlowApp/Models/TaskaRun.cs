@@ -31,6 +31,8 @@ namespace TaskasWorkFlowApp.Models
     public ICollection<TaskaRun> ParenTaskaRuns { get; set; }
     public ICollection<TaskaRun> ChildTaskaRuns { get; set; }
 
+    public ICollection<Note> Notes { get; set; }
+
   }
 
   public enum Status

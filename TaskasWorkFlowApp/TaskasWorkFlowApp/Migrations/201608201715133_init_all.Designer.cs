@@ -7,13 +7,13 @@ namespace TaskasWorkFlowApp.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class note : IMigrationMetadata
+    public sealed partial class init_all : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(note));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(init_all));
         
         string IMigrationMetadata.Id
         {
-            get { return "201608191618356_note"; }
+            get { return "201608201715133_init_all"; }
         }
         
         string IMigrationMetadata.Source

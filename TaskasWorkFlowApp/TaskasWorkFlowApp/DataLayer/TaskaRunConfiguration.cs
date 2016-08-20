@@ -16,13 +16,13 @@ namespace TaskasWorkFlowApp.DataLayer
       Property(c => c.Id).HasColumnName("TaskaRunId");
 
       HasMany(c => c.ParenTaskaRuns)
-          .WithMany(c => c.ChildTaskaRuns)
-          .Map(m =>
-          {
-            m.MapLeftKey("ChildTaskaRunId");
-            m.MapRightKey("ParentTaskaRunId");
-            m.ToTable("ParentChildTaskaRun");
-          });
+     .WithMany(c => c.ChildTaskaRuns)
+     .Map(m =>
+     {
+       m.MapLeftKey("ChildTaskaRunId");
+       m.MapRightKey("ParentTaskaRunId");
+       m.ToTable("ParentChildTaskaRun");
+     });
     }
   }
 }

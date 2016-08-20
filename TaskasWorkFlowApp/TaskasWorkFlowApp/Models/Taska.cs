@@ -19,5 +19,6 @@ namespace TaskasWorkFlowApp.Models
     public string Description { get; set; }
     public ICollection<Taska> ParenTaskas { get; set; }
     public ICollection<Taska> ChildTaskas { get; set; }
+    public ICollection<Note> Notes { get; set; }
   }
 }

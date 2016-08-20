@@ -209,33 +209,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201608182110138_Initial.cs" />
-    <Compile Include="Migrations\201608182110138_Initial.Designer.cs">
-      <DependentUpon>201608182110138_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201608191551365_taskas_many_to_many.cs" />
-    <Compile Include="Migrations\201608191551365_taskas_many_to_many.Designer.cs">
-      <DependentUpon>201608191551365_taskas_many_to_many.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201608191618356_note.cs" />
-    <Compile Include="Migrations\201608191618356_note.Designer.cs">
-      <DependentUpon>201608191618356_note.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201608191631455_taskaRun.cs" />
-    <Compile Include="Migrations\201608191631455_taskaRun.Designer.cs">
-      <DependentUpon>201608191631455_taskaRun.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201608191636326_taskaRun1.cs" />
-    <Compile Include="Migrations\201608191636326_taskaRun1.Designer.cs">
-      <DependentUpon>201608191636326_taskaRun1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201608192108403_parameter_and_parameterRun.cs" />
-    <Compile Include="Migrations\201608192108403_parameter_and_parameterRun.Designer.cs">
-      <DependentUpon>201608192108403_parameter_and_parameterRun.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201608192134044_parameterDescription.cs" />
-    <Compile Include="Migrations\201608192134044_parameterDescription.Designer.cs">
-      <DependentUpon>201608192134044_parameterDescription.cs</DependentUpon>
+    <Compile Include="Migrations\201608201715133_init_all.cs" />
+    <Compile Include="Migrations\201608201715133_init_all.Designer.cs">
+      <DependentUpon>201608201715133_init_all.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -339,26 +315,8 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201608182110138_Initial.resx">
-      <DependentUpon>201608182110138_Initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201608191551365_taskas_many_to_many.resx">
-      <DependentUpon>201608191551365_taskas_many_to_many.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201608191618356_note.resx">
-      <DependentUpon>201608191618356_note.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201608191631455_taskaRun.resx">
-      <DependentUpon>201608191631455_taskaRun.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201608191636326_taskaRun1.resx">
-      <DependentUpon>201608191636326_taskaRun1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201608192108403_parameter_and_parameterRun.resx">
-      <DependentUpon>201608192108403_parameter_and_parameterRun.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201608192134044_parameterDescription.resx">
-      <DependentUpon>201608192134044_parameterDescription.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201608201715133_init_all.resx">
+      <DependentUpon>201608201715133_init_all.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

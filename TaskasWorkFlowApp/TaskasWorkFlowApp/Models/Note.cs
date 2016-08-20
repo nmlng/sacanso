@@ -12,13 +12,9 @@ namespace TaskasWorkFlowApp.Models
     public int Id { get; set; }
     public string NoteText { get; set; }
 
-    public virtual Taska Taska { get; set; }
-    [Display(Name = "Taska")]
-    public int TaskaId { get; set; }
+    public virtual ICollection<Taska> Taskas { get; set; }
 
-    public virtual TaskaRun TaskaRun { get; set; }
-    [Display(Name = "TaskaRun")]
-    public int TaskaRunId { get; set; }
+    public virtual ICollection<TaskaRun> TaskasRuns { get; set; }
   }
 
 }
