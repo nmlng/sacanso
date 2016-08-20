@@ -10,7 +10,7 @@ namespace TaskasWorkFlowApp.Models
   public class ParameterRun
   {
     public int Id { get; set; }
-    public ParameterType ParameterValue { get; set; }
+    public String ParameterValue { get; set; }
     public virtual Parameter Parameter { get; set; }
     [Display(Name = "Parameter")]
     public int ParameterId { get; set; }
