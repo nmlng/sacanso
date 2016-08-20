@@ -15,6 +15,7 @@ namespace TaskasWorkFlowApp.DataLayer
     {
       Property(m => m.Id).HasColumnName("NoteId");
 
+      
       HasMany(c => c.Taskas)
      .WithMany(c => c.Notes)
      .Map(m =>

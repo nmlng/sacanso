@@ -9,6 +9,7 @@ namespace TaskasWorkFlowApp.Models
 {
   public class Parameter
   {
+
     public int Id { get; set; }
     public string ParameterName { get; set; }
     public string ParameterDescription { get; set; }
@@ -21,8 +22,8 @@ namespace TaskasWorkFlowApp.Models
 
   public enum ParameterType
   {
+    NotDefined,
     Input,
-    Output,
-    NotDefined
+    Output  
   }
 }
