@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="f72581f5c7234ec586c923630c7b95d5" Name="Diagram1" ZoomLevel="143">
+        <EntityTypeShape EntityType="TaskasWorkFlowAppModel.C__MigrationHistory" Width="1.5" PointX="0.5" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TaskasWorkFlowAppModel.AspNetRoles" Width="1.5" PointX="0.75" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TaskasWorkFlowAppModel.AspNetUserClaims" Width="1.5" PointX="5.25" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="TaskasWorkFlowAppModel.AspNetUserLogins" Width="1.5" PointX="5.25" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TaskasWorkFlowAppModel.AspNetUsers" Width="1.5" PointX="3" PointY="10.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TaskasWorkFlowAppModel.Notes" Width="1.5" PointX="5.75" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="TaskasWorkFlowAppModel.ParameterRuns" Width="1.5" PointX="7.625" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TaskasWorkFlowAppModel.Parameters" Width="1.5" PointX="3.625" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TaskasWorkFlowAppModel.ParentChildTaska" Width="1.5" PointX="1.5" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="TaskasWorkFlowAppModel.ParentChildTaskaRun" Width="1.5" PointX="9.75" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TaskasWorkFlowAppModel.TaskaRuns" Width="1.5" PointX="7.75" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TaskasWorkFlowAppModel.Taskas" Width="1.5" PointX="3.625" PointY="5.625" IsExpanded="true" />
+        <AssociationConnector Association="TaskasWorkFlowAppModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="TaskasWorkFlowAppModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="TaskasWorkFlowAppModel.FK_dbo_ParameterRuns_dbo_Parameters_ParameterId" ManuallyRouted="false" />
+        <AssociationConnector Association="TaskasWorkFlowAppModel.FK_dbo_ParameterRuns_dbo_TaskaRuns_TaskaRunId" ManuallyRouted="false" />
+        <AssociationConnector Association="TaskasWorkFlowAppModel.FK_dbo_Parameters_dbo_Taskas_TaskaId" ManuallyRouted="false" />
+        <AssociationConnector Association="TaskasWorkFlowAppModel.FK_dbo_ParentChildTaska_dbo_Taskas_ChildTaskaId" ManuallyRouted="false" />
+        <AssociationConnector Association="TaskasWorkFlowAppModel.FK_dbo_ParentChildTaska_dbo_Taskas_ParentTaskaId" ManuallyRouted="false" />
+        <AssociationConnector Association="TaskasWorkFlowAppModel.FK_dbo_ParentChildTaskaRun_dbo_TaskaRuns_ChildTaskaRunId" ManuallyRouted="false" />
+        <AssociationConnector Association="TaskasWorkFlowAppModel.FK_dbo_ParentChildTaskaRun_dbo_TaskaRuns_ParentTaskaRunId" ManuallyRouted="false" />
+        <AssociationConnector Association="TaskasWorkFlowAppModel.FK_dbo_TaskaRuns_dbo_Taskas_TaskaId" ManuallyRouted="false" />
+        <AssociationConnector Association="TaskasWorkFlowAppModel.AspNetUserRoles" ManuallyRouted="false" />
+        <AssociationConnector Association="TaskasWorkFlowAppModel.TaskaNotes" ManuallyRouted="false" />
+        <AssociationConnector Association="TaskasWorkFlowAppModel.TaskaRunNotes" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

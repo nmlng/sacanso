@@ -1,0 +1,960 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="TaskasWorkFlowAppModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="Model" Type="varbinary(max)" Nullable="false" />
+          <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetRoles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaims">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ClaimType" Type="nvarchar(max)" />
+          <Property Name="ClaimValue" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogins">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserRoles">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+          <Property Name="PasswordHash" Type="nvarchar(max)" />
+          <Property Name="SecurityStamp" Type="nvarchar(max)" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" />
+          <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="datetime" />
+          <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Notes">
+          <Key>
+            <PropertyRef Name="NoteId" />
+          </Key>
+          <Property Name="NoteId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NoteText" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="ParameterRuns">
+          <Key>
+            <PropertyRef Name="ParameterRunId" />
+          </Key>
+          <Property Name="ParameterRunId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ParameterValue" Type="nvarchar(max)" />
+          <Property Name="ParameterId" Type="int" Nullable="false" />
+          <Property Name="TaskaRunId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Parameters">
+          <Key>
+            <PropertyRef Name="ParameterId" />
+          </Key>
+          <Property Name="ParameterId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ParameterName" Type="nvarchar(max)" />
+          <Property Name="ParameterDescription" Type="nvarchar(max)" />
+          <Property Name="ParameterType" Type="int" Nullable="false" />
+          <Property Name="TaskaId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ParentChildTaska">
+          <Key>
+            <PropertyRef Name="ChildTaskaId" />
+            <PropertyRef Name="ParentTaskaId" />
+          </Key>
+          <Property Name="ChildTaskaId" Type="int" Nullable="false" />
+          <Property Name="ParentTaskaId" Type="int" Nullable="false" />
+          <Property Name="Order" Type="int" />
+        </EntityType>
+        <EntityType Name="ParentChildTaskaRun">
+          <Key>
+            <PropertyRef Name="ChildTaskaRunId" />
+            <PropertyRef Name="ParentTaskaRunId" />
+          </Key>
+          <Property Name="ChildTaskaRunId" Type="int" Nullable="false" />
+          <Property Name="ParentTaskaRunId" Type="int" Nullable="false" />
+          <Property Name="Order" Type="int" />
+        </EntityType>
+        <EntityType Name="TaskaNotes">
+          <Key>
+            <PropertyRef Name="NoteId" />
+            <PropertyRef Name="TaskaId" />
+          </Key>
+          <Property Name="NoteId" Type="int" Nullable="false" />
+          <Property Name="TaskaId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TaskaRunNotes">
+          <Key>
+            <PropertyRef Name="NoteId" />
+            <PropertyRef Name="TaskaRunId" />
+          </Key>
+          <Property Name="NoteId" Type="int" Nullable="false" />
+          <Property Name="TaskaRunId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TaskaRuns">
+          <Key>
+            <PropertyRef Name="TaskaRunId" />
+          </Key>
+          <Property Name="TaskaRunId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TaskaRunName" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Status" Type="int" Nullable="false" />
+          <Property Name="TaskaId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Taskas">
+          <Key>
+            <PropertyRef Name="TaskaId" />
+          </Key>
+          <Property Name="TaskaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TaskaName" Type="nvarchar(max)" />
+          <Property Name="Description" Type="nvarchar(max)" />
+        </EntityType>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetRoles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_ParameterRuns_dbo_Parameters_ParameterId">
+          <End Role="Parameters" Type="Self.Parameters" Multiplicity="1" />
+          <End Role="ParameterRuns" Type="Self.ParameterRuns" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Parameters">
+              <PropertyRef Name="ParameterId" />
+            </Principal>
+            <Dependent Role="ParameterRuns">
+              <PropertyRef Name="ParameterId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_ParameterRuns_dbo_TaskaRuns_TaskaRunId">
+          <End Role="TaskaRuns" Type="Self.TaskaRuns" Multiplicity="1" />
+          <End Role="ParameterRuns" Type="Self.ParameterRuns" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TaskaRuns">
+              <PropertyRef Name="TaskaRunId" />
+            </Principal>
+            <Dependent Role="ParameterRuns">
+              <PropertyRef Name="TaskaRunId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Parameters_dbo_Taskas_TaskaId">
+          <End Role="Taskas" Type="Self.Taskas" Multiplicity="1" />
+          <End Role="Parameters" Type="Self.Parameters" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Taskas">
+              <PropertyRef Name="TaskaId" />
+            </Principal>
+            <Dependent Role="Parameters">
+              <PropertyRef Name="TaskaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_ParentChildTaska_dbo_Taskas_ChildTaskaId">
+          <End Role="Taskas" Type="Self.Taskas" Multiplicity="1" />
+          <End Role="ParentChildTaska" Type="Self.ParentChildTaska" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Taskas">
+              <PropertyRef Name="TaskaId" />
+            </Principal>
+            <Dependent Role="ParentChildTaska">
+              <PropertyRef Name="ChildTaskaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_ParentChildTaska_dbo_Taskas_ParentTaskaId">
+          <End Role="Taskas" Type="Self.Taskas" Multiplicity="1" />
+          <End Role="ParentChildTaska" Type="Self.ParentChildTaska" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Taskas">
+              <PropertyRef Name="TaskaId" />
+            </Principal>
+            <Dependent Role="ParentChildTaska">
+              <PropertyRef Name="ParentTaskaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_ParentChildTaskaRun_dbo_TaskaRuns_ChildTaskaRunId">
+          <End Role="TaskaRuns" Type="Self.TaskaRuns" Multiplicity="1" />
+          <End Role="ParentChildTaskaRun" Type="Self.ParentChildTaskaRun" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TaskaRuns">
+              <PropertyRef Name="TaskaRunId" />
+            </Principal>
+            <Dependent Role="ParentChildTaskaRun">
+              <PropertyRef Name="ChildTaskaRunId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_ParentChildTaskaRun_dbo_TaskaRuns_ParentTaskaRunId">
+          <End Role="TaskaRuns" Type="Self.TaskaRuns" Multiplicity="1" />
+          <End Role="ParentChildTaskaRun" Type="Self.ParentChildTaskaRun" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TaskaRuns">
+              <PropertyRef Name="TaskaRunId" />
+            </Principal>
+            <Dependent Role="ParentChildTaskaRun">
+              <PropertyRef Name="ParentTaskaRunId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_TaskaNotes_dbo_Notes_NoteId">
+          <End Role="Notes" Type="Self.Notes" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TaskaNotes" Type="Self.TaskaNotes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Notes">
+              <PropertyRef Name="NoteId" />
+            </Principal>
+            <Dependent Role="TaskaNotes">
+              <PropertyRef Name="NoteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_TaskaNotes_dbo_Taskas_TaskaId">
+          <End Role="Taskas" Type="Self.Taskas" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TaskaNotes" Type="Self.TaskaNotes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Taskas">
+              <PropertyRef Name="TaskaId" />
+            </Principal>
+            <Dependent Role="TaskaNotes">
+              <PropertyRef Name="TaskaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_TaskaRunNotes_dbo_Notes_NoteId">
+          <End Role="Notes" Type="Self.Notes" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TaskaRunNotes" Type="Self.TaskaRunNotes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Notes">
+              <PropertyRef Name="NoteId" />
+            </Principal>
+            <Dependent Role="TaskaRunNotes">
+              <PropertyRef Name="NoteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_TaskaRunNotes_dbo_TaskaRuns_TaskaRunId">
+          <End Role="TaskaRuns" Type="Self.TaskaRuns" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TaskaRunNotes" Type="Self.TaskaRunNotes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TaskaRuns">
+              <PropertyRef Name="TaskaRunId" />
+            </Principal>
+            <Dependent Role="TaskaRunNotes">
+              <PropertyRef Name="TaskaRunId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_TaskaRuns_dbo_Taskas_TaskaId">
+          <End Role="Taskas" Type="Self.Taskas" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TaskaRuns" Type="Self.TaskaRuns" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Taskas">
+              <PropertyRef Name="TaskaId" />
+            </Principal>
+            <Dependent Role="TaskaRuns">
+              <PropertyRef Name="TaskaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TaskasWorkFlowAppModelStoreContainer">
+          <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Notes" EntityType="Self.Notes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ParameterRuns" EntityType="Self.ParameterRuns" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Parameters" EntityType="Self.Parameters" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ParentChildTaska" EntityType="Self.ParentChildTaska" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ParentChildTaskaRun" EntityType="Self.ParentChildTaskaRun" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TaskaNotes" EntityType="Self.TaskaNotes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TaskaRunNotes" EntityType="Self.TaskaRunNotes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TaskaRuns" EntityType="Self.TaskaRuns" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Taskas" EntityType="Self.Taskas" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_ParameterRuns_dbo_Parameters_ParameterId" Association="Self.FK_dbo_ParameterRuns_dbo_Parameters_ParameterId">
+            <End Role="Parameters" EntitySet="Parameters" />
+            <End Role="ParameterRuns" EntitySet="ParameterRuns" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_ParameterRuns_dbo_TaskaRuns_TaskaRunId" Association="Self.FK_dbo_ParameterRuns_dbo_TaskaRuns_TaskaRunId">
+            <End Role="TaskaRuns" EntitySet="TaskaRuns" />
+            <End Role="ParameterRuns" EntitySet="ParameterRuns" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Parameters_dbo_Taskas_TaskaId" Association="Self.FK_dbo_Parameters_dbo_Taskas_TaskaId">
+            <End Role="Taskas" EntitySet="Taskas" />
+            <End Role="Parameters" EntitySet="Parameters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_ParentChildTaska_dbo_Taskas_ChildTaskaId" Association="Self.FK_dbo_ParentChildTaska_dbo_Taskas_ChildTaskaId">
+            <End Role="Taskas" EntitySet="Taskas" />
+            <End Role="ParentChildTaska" EntitySet="ParentChildTaska" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_ParentChildTaska_dbo_Taskas_ParentTaskaId" Association="Self.FK_dbo_ParentChildTaska_dbo_Taskas_ParentTaskaId">
+            <End Role="Taskas" EntitySet="Taskas" />
+            <End Role="ParentChildTaska" EntitySet="ParentChildTaska" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_ParentChildTaskaRun_dbo_TaskaRuns_ChildTaskaRunId" Association="Self.FK_dbo_ParentChildTaskaRun_dbo_TaskaRuns_ChildTaskaRunId">
+            <End Role="TaskaRuns" EntitySet="TaskaRuns" />
+            <End Role="ParentChildTaskaRun" EntitySet="ParentChildTaskaRun" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_ParentChildTaskaRun_dbo_TaskaRuns_ParentTaskaRunId" Association="Self.FK_dbo_ParentChildTaskaRun_dbo_TaskaRuns_ParentTaskaRunId">
+            <End Role="TaskaRuns" EntitySet="TaskaRuns" />
+            <End Role="ParentChildTaskaRun" EntitySet="ParentChildTaskaRun" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_TaskaNotes_dbo_Notes_NoteId" Association="Self.FK_dbo_TaskaNotes_dbo_Notes_NoteId">
+            <End Role="Notes" EntitySet="Notes" />
+            <End Role="TaskaNotes" EntitySet="TaskaNotes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_TaskaNotes_dbo_Taskas_TaskaId" Association="Self.FK_dbo_TaskaNotes_dbo_Taskas_TaskaId">
+            <End Role="Taskas" EntitySet="Taskas" />
+            <End Role="TaskaNotes" EntitySet="TaskaNotes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_TaskaRunNotes_dbo_Notes_NoteId" Association="Self.FK_dbo_TaskaRunNotes_dbo_Notes_NoteId">
+            <End Role="Notes" EntitySet="Notes" />
+            <End Role="TaskaRunNotes" EntitySet="TaskaRunNotes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_TaskaRunNotes_dbo_TaskaRuns_TaskaRunId" Association="Self.FK_dbo_TaskaRunNotes_dbo_TaskaRuns_TaskaRunId">
+            <End Role="TaskaRuns" EntitySet="TaskaRuns" />
+            <End Role="TaskaRunNotes" EntitySet="TaskaRunNotes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_TaskaRuns_dbo_Taskas_TaskaId" Association="Self.FK_dbo_TaskaRuns_dbo_Taskas_TaskaId">
+            <End Role="Taskas" EntitySet="Taskas" />
+            <End Role="TaskaRuns" EntitySet="TaskaRuns" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TaskasWorkFlowAppModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="C__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ContextKey" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Model" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <Property Name="ProductVersion" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetRoles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Self.AspNetUserRoles" FromRole="AspNetRoles" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaims">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaims" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogins">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProviderKey" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogins" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
+          <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
+          <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+        </EntityType>
+        <EntityType Name="Notes">
+          <Key>
+            <PropertyRef Name="NoteId" />
+          </Key>
+          <Property Name="NoteId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NoteText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Taskas" Relationship="Self.TaskaNotes" FromRole="Notes" ToRole="Taskas" />
+          <NavigationProperty Name="TaskaRuns" Relationship="Self.TaskaRunNotes" FromRole="Notes" ToRole="TaskaRuns" />
+        </EntityType>
+        <EntityType Name="ParameterRuns">
+          <Key>
+            <PropertyRef Name="ParameterRunId" />
+          </Key>
+          <Property Name="ParameterRunId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ParameterValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ParameterId" Type="Int32" Nullable="false" />
+          <Property Name="TaskaRunId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Parameters" Relationship="Self.FK_dbo_ParameterRuns_dbo_Parameters_ParameterId" FromRole="ParameterRuns" ToRole="Parameters" />
+          <NavigationProperty Name="TaskaRuns" Relationship="Self.FK_dbo_ParameterRuns_dbo_TaskaRuns_TaskaRunId" FromRole="ParameterRuns" ToRole="TaskaRuns" />
+        </EntityType>
+        <EntityType Name="Parameters">
+          <Key>
+            <PropertyRef Name="ParameterId" />
+          </Key>
+          <Property Name="ParameterId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ParameterName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ParameterDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ParameterType" Type="Int32" Nullable="false" />
+          <Property Name="TaskaId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ParameterRuns" Relationship="Self.FK_dbo_ParameterRuns_dbo_Parameters_ParameterId" FromRole="Parameters" ToRole="ParameterRuns" />
+          <NavigationProperty Name="Taskas" Relationship="Self.FK_dbo_Parameters_dbo_Taskas_TaskaId" FromRole="Parameters" ToRole="Taskas" />
+        </EntityType>
+        <EntityType Name="ParentChildTaska">
+          <Key>
+            <PropertyRef Name="ChildTaskaId" />
+            <PropertyRef Name="ParentTaskaId" />
+          </Key>
+          <Property Name="ChildTaskaId" Type="Int32" Nullable="false" />
+          <Property Name="ParentTaskaId" Type="Int32" Nullable="false" />
+          <Property Name="Order" Type="Int32" />
+          <NavigationProperty Name="Taskas" Relationship="Self.FK_dbo_ParentChildTaska_dbo_Taskas_ChildTaskaId" FromRole="ParentChildTaska" ToRole="Taskas" />
+          <NavigationProperty Name="Taskas1" Relationship="Self.FK_dbo_ParentChildTaska_dbo_Taskas_ParentTaskaId" FromRole="ParentChildTaska" ToRole="Taskas" />
+        </EntityType>
+        <EntityType Name="ParentChildTaskaRun">
+          <Key>
+            <PropertyRef Name="ChildTaskaRunId" />
+            <PropertyRef Name="ParentTaskaRunId" />
+          </Key>
+          <Property Name="ChildTaskaRunId" Type="Int32" Nullable="false" />
+          <Property Name="ParentTaskaRunId" Type="Int32" Nullable="false" />
+          <Property Name="Order" Type="Int32" />
+          <NavigationProperty Name="TaskaRuns" Relationship="Self.FK_dbo_ParentChildTaskaRun_dbo_TaskaRuns_ChildTaskaRunId" FromRole="ParentChildTaskaRun" ToRole="TaskaRuns" />
+          <NavigationProperty Name="TaskaRuns1" Relationship="Self.FK_dbo_ParentChildTaskaRun_dbo_TaskaRuns_ParentTaskaRunId" FromRole="ParentChildTaskaRun" ToRole="TaskaRuns" />
+        </EntityType>
+        <EntityType Name="TaskaRuns">
+          <Key>
+            <PropertyRef Name="TaskaRunId" />
+          </Key>
+          <Property Name="TaskaRunId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TaskaRunName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Status" Type="Int32" Nullable="false" />
+          <Property Name="TaskaId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ParameterRuns" Relationship="Self.FK_dbo_ParameterRuns_dbo_TaskaRuns_TaskaRunId" FromRole="TaskaRuns" ToRole="ParameterRuns" />
+          <NavigationProperty Name="ParentChildTaskaRun" Relationship="Self.FK_dbo_ParentChildTaskaRun_dbo_TaskaRuns_ChildTaskaRunId" FromRole="TaskaRuns" ToRole="ParentChildTaskaRun" />
+          <NavigationProperty Name="ParentChildTaskaRun1" Relationship="Self.FK_dbo_ParentChildTaskaRun_dbo_TaskaRuns_ParentTaskaRunId" FromRole="TaskaRuns" ToRole="ParentChildTaskaRun" />
+          <NavigationProperty Name="Taskas" Relationship="Self.FK_dbo_TaskaRuns_dbo_Taskas_TaskaId" FromRole="TaskaRuns" ToRole="Taskas" />
+          <NavigationProperty Name="Notes" Relationship="Self.TaskaRunNotes" FromRole="TaskaRuns" ToRole="Notes" />
+        </EntityType>
+        <EntityType Name="Taskas">
+          <Key>
+            <PropertyRef Name="TaskaId" />
+          </Key>
+          <Property Name="TaskaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TaskaName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Parameters" Relationship="Self.FK_dbo_Parameters_dbo_Taskas_TaskaId" FromRole="Taskas" ToRole="Parameters" />
+          <NavigationProperty Name="ParentChildTaska" Relationship="Self.FK_dbo_ParentChildTaska_dbo_Taskas_ChildTaskaId" FromRole="Taskas" ToRole="ParentChildTaska" />
+          <NavigationProperty Name="ParentChildTaska1" Relationship="Self.FK_dbo_ParentChildTaska_dbo_Taskas_ParentTaskaId" FromRole="Taskas" ToRole="ParentChildTaska" />
+          <NavigationProperty Name="TaskaRuns" Relationship="Self.FK_dbo_TaskaRuns_dbo_Taskas_TaskaId" FromRole="Taskas" ToRole="TaskaRuns" />
+          <NavigationProperty Name="Notes" Relationship="Self.TaskaNotes" FromRole="Taskas" ToRole="Notes" />
+        </EntityType>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_ParameterRuns_dbo_Parameters_ParameterId">
+          <End Role="Parameters" Type="Self.Parameters" Multiplicity="1" />
+          <End Role="ParameterRuns" Type="Self.ParameterRuns" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Parameters">
+              <PropertyRef Name="ParameterId" />
+            </Principal>
+            <Dependent Role="ParameterRuns">
+              <PropertyRef Name="ParameterId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_ParameterRuns_dbo_TaskaRuns_TaskaRunId">
+          <End Role="TaskaRuns" Type="Self.TaskaRuns" Multiplicity="1" />
+          <End Role="ParameterRuns" Type="Self.ParameterRuns" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TaskaRuns">
+              <PropertyRef Name="TaskaRunId" />
+            </Principal>
+            <Dependent Role="ParameterRuns">
+              <PropertyRef Name="TaskaRunId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Parameters_dbo_Taskas_TaskaId">
+          <End Role="Taskas" Type="Self.Taskas" Multiplicity="1" />
+          <End Role="Parameters" Type="Self.Parameters" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Taskas">
+              <PropertyRef Name="TaskaId" />
+            </Principal>
+            <Dependent Role="Parameters">
+              <PropertyRef Name="TaskaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_ParentChildTaska_dbo_Taskas_ChildTaskaId">
+          <End Role="Taskas" Type="Self.Taskas" Multiplicity="1" />
+          <End Role="ParentChildTaska" Type="Self.ParentChildTaska" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Taskas">
+              <PropertyRef Name="TaskaId" />
+            </Principal>
+            <Dependent Role="ParentChildTaska">
+              <PropertyRef Name="ChildTaskaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_ParentChildTaska_dbo_Taskas_ParentTaskaId">
+          <End Role="Taskas" Type="Self.Taskas" Multiplicity="1" />
+          <End Role="ParentChildTaska" Type="Self.ParentChildTaska" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Taskas">
+              <PropertyRef Name="TaskaId" />
+            </Principal>
+            <Dependent Role="ParentChildTaska">
+              <PropertyRef Name="ParentTaskaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_ParentChildTaskaRun_dbo_TaskaRuns_ChildTaskaRunId">
+          <End Role="TaskaRuns" Type="Self.TaskaRuns" Multiplicity="1" />
+          <End Role="ParentChildTaskaRun" Type="Self.ParentChildTaskaRun" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TaskaRuns">
+              <PropertyRef Name="TaskaRunId" />
+            </Principal>
+            <Dependent Role="ParentChildTaskaRun">
+              <PropertyRef Name="ChildTaskaRunId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_ParentChildTaskaRun_dbo_TaskaRuns_ParentTaskaRunId">
+          <End Role="TaskaRuns" Type="Self.TaskaRuns" Multiplicity="1" />
+          <End Role="ParentChildTaskaRun" Type="Self.ParentChildTaskaRun" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TaskaRuns">
+              <PropertyRef Name="TaskaRunId" />
+            </Principal>
+            <Dependent Role="ParentChildTaskaRun">
+              <PropertyRef Name="ParentTaskaRunId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_TaskaRuns_dbo_Taskas_TaskaId">
+          <End Role="Taskas" Type="Self.Taskas" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TaskaRuns" Type="Self.TaskaRuns" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Taskas">
+              <PropertyRef Name="TaskaId" />
+            </Principal>
+            <Dependent Role="TaskaRuns">
+              <PropertyRef Name="TaskaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AspNetUserRoles">
+          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="*" />
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="*" />
+        </Association>
+        <Association Name="TaskaNotes">
+          <End Role="Notes" Type="Self.Notes" Multiplicity="*" />
+          <End Role="Taskas" Type="Self.Taskas" Multiplicity="*" />
+        </Association>
+        <Association Name="TaskaRunNotes">
+          <End Role="Notes" Type="Self.Notes" Multiplicity="*" />
+          <End Role="TaskaRuns" Type="Self.TaskaRuns" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="TaskasWorkFlowAppEntities2" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" />
+          <EntitySet Name="Notes" EntityType="Self.Notes" />
+          <EntitySet Name="ParameterRuns" EntityType="Self.ParameterRuns" />
+          <EntitySet Name="Parameters" EntityType="Self.Parameters" />
+          <EntitySet Name="ParentChildTaska" EntityType="Self.ParentChildTaska" />
+          <EntitySet Name="ParentChildTaskaRun" EntityType="Self.ParentChildTaskaRun" />
+          <EntitySet Name="TaskaRuns" EntityType="Self.TaskaRuns" />
+          <EntitySet Name="Taskas" EntityType="Self.Taskas" />
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_ParameterRuns_dbo_Parameters_ParameterId" Association="Self.FK_dbo_ParameterRuns_dbo_Parameters_ParameterId">
+            <End Role="Parameters" EntitySet="Parameters" />
+            <End Role="ParameterRuns" EntitySet="ParameterRuns" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_ParameterRuns_dbo_TaskaRuns_TaskaRunId" Association="Self.FK_dbo_ParameterRuns_dbo_TaskaRuns_TaskaRunId">
+            <End Role="TaskaRuns" EntitySet="TaskaRuns" />
+            <End Role="ParameterRuns" EntitySet="ParameterRuns" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Parameters_dbo_Taskas_TaskaId" Association="Self.FK_dbo_Parameters_dbo_Taskas_TaskaId">
+            <End Role="Taskas" EntitySet="Taskas" />
+            <End Role="Parameters" EntitySet="Parameters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_ParentChildTaska_dbo_Taskas_ChildTaskaId" Association="Self.FK_dbo_ParentChildTaska_dbo_Taskas_ChildTaskaId">
+            <End Role="Taskas" EntitySet="Taskas" />
+            <End Role="ParentChildTaska" EntitySet="ParentChildTaska" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_ParentChildTaska_dbo_Taskas_ParentTaskaId" Association="Self.FK_dbo_ParentChildTaska_dbo_Taskas_ParentTaskaId">
+            <End Role="Taskas" EntitySet="Taskas" />
+            <End Role="ParentChildTaska" EntitySet="ParentChildTaska" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_ParentChildTaskaRun_dbo_TaskaRuns_ChildTaskaRunId" Association="Self.FK_dbo_ParentChildTaskaRun_dbo_TaskaRuns_ChildTaskaRunId">
+            <End Role="TaskaRuns" EntitySet="TaskaRuns" />
+            <End Role="ParentChildTaskaRun" EntitySet="ParentChildTaskaRun" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_ParentChildTaskaRun_dbo_TaskaRuns_ParentTaskaRunId" Association="Self.FK_dbo_ParentChildTaskaRun_dbo_TaskaRuns_ParentTaskaRunId">
+            <End Role="TaskaRuns" EntitySet="TaskaRuns" />
+            <End Role="ParentChildTaskaRun" EntitySet="ParentChildTaskaRun" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_TaskaRuns_dbo_Taskas_TaskaId" Association="Self.FK_dbo_TaskaRuns_dbo_Taskas_TaskaId">
+            <End Role="Taskas" EntitySet="Taskas" />
+            <End Role="TaskaRuns" EntitySet="TaskaRuns" />
+          </AssociationSet>
+          <AssociationSet Name="AspNetUserRoles" Association="Self.AspNetUserRoles">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <AssociationSet Name="TaskaNotes" Association="Self.TaskaNotes">
+            <End Role="Notes" EntitySet="Notes" />
+            <End Role="Taskas" EntitySet="Taskas" />
+          </AssociationSet>
+          <AssociationSet Name="TaskaRunNotes" Association="Self.TaskaRunNotes">
+            <End Role="Notes" EntitySet="Notes" />
+            <End Role="TaskaRuns" EntitySet="TaskaRuns" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TaskasWorkFlowAppModelStoreContainer" CdmEntityContainer="TaskasWorkFlowAppEntities2">
+          <EntitySetMapping Name="C__MigrationHistory">
+            <EntityTypeMapping TypeName="TaskasWorkFlowAppModel.C__MigrationHistory">
+              <MappingFragment StoreEntitySet="__MigrationHistory">
+                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+                <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetRoles">
+            <EntityTypeMapping TypeName="TaskasWorkFlowAppModel.AspNetRoles">
+              <MappingFragment StoreEntitySet="AspNetRoles">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserClaims">
+            <EntityTypeMapping TypeName="TaskasWorkFlowAppModel.AspNetUserClaims">
+              <MappingFragment StoreEntitySet="AspNetUserClaims">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+                <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserLogins">
+            <EntityTypeMapping TypeName="TaskasWorkFlowAppModel.AspNetUserLogins">
+              <MappingFragment StoreEntitySet="AspNetUserLogins">
+                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUsers">
+            <EntityTypeMapping TypeName="TaskasWorkFlowAppModel.AspNetUsers">
+              <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Notes">
+            <EntityTypeMapping TypeName="TaskasWorkFlowAppModel.Notes">
+              <MappingFragment StoreEntitySet="Notes">
+                <ScalarProperty Name="NoteId" ColumnName="NoteId" />
+                <ScalarProperty Name="NoteText" ColumnName="NoteText" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ParameterRuns">
+            <EntityTypeMapping TypeName="TaskasWorkFlowAppModel.ParameterRuns">
+              <MappingFragment StoreEntitySet="ParameterRuns">
+                <ScalarProperty Name="ParameterRunId" ColumnName="ParameterRunId" />
+                <ScalarProperty Name="ParameterValue" ColumnName="ParameterValue" />
+                <ScalarProperty Name="ParameterId" ColumnName="ParameterId" />
+                <ScalarProperty Name="TaskaRunId" ColumnName="TaskaRunId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Parameters">
+            <EntityTypeMapping TypeName="TaskasWorkFlowAppModel.Parameters">
+              <MappingFragment StoreEntitySet="Parameters">
+                <ScalarProperty Name="ParameterId" ColumnName="ParameterId" />
+                <ScalarProperty Name="ParameterName" ColumnName="ParameterName" />
+                <ScalarProperty Name="ParameterDescription" ColumnName="ParameterDescription" />
+                <ScalarProperty Name="ParameterType" ColumnName="ParameterType" />
+                <ScalarProperty Name="TaskaId" ColumnName="TaskaId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ParentChildTaska">
+            <EntityTypeMapping TypeName="TaskasWorkFlowAppModel.ParentChildTaska">
+              <MappingFragment StoreEntitySet="ParentChildTaska">
+                <ScalarProperty Name="ChildTaskaId" ColumnName="ChildTaskaId" />
+                <ScalarProperty Name="ParentTaskaId" ColumnName="ParentTaskaId" />
+                <ScalarProperty Name="Order" ColumnName="Order" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ParentChildTaskaRun">
+            <EntityTypeMapping TypeName="TaskasWorkFlowAppModel.ParentChildTaskaRun">
+              <MappingFragment StoreEntitySet="ParentChildTaskaRun">
+                <ScalarProperty Name="ChildTaskaRunId" ColumnName="ChildTaskaRunId" />
+                <ScalarProperty Name="ParentTaskaRunId" ColumnName="ParentTaskaRunId" />
+                <ScalarProperty Name="Order" ColumnName="Order" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TaskaRuns">
+            <EntityTypeMapping TypeName="TaskasWorkFlowAppModel.TaskaRuns">
+              <MappingFragment StoreEntitySet="TaskaRuns">
+                <ScalarProperty Name="TaskaRunId" ColumnName="TaskaRunId" />
+                <ScalarProperty Name="TaskaRunName" ColumnName="TaskaRunName" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="TaskaId" ColumnName="TaskaId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Taskas">
+            <EntityTypeMapping TypeName="TaskasWorkFlowAppModel.Taskas">
+              <MappingFragment StoreEntitySet="Taskas">
+                <ScalarProperty Name="TaskaId" ColumnName="TaskaId" />
+                <ScalarProperty Name="TaskaName" ColumnName="TaskaName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="AspNetUserRoles" TypeName="TaskasWorkFlowAppModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+            <EndProperty Name="AspNetRoles">
+              <ScalarProperty Name="Id" ColumnName="RoleId" />
+            </EndProperty>
+            <EndProperty Name="AspNetUsers">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="TaskaNotes" TypeName="TaskasWorkFlowAppModel.TaskaNotes" StoreEntitySet="TaskaNotes">
+            <EndProperty Name="Notes">
+              <ScalarProperty Name="NoteId" ColumnName="NoteId" />
+            </EndProperty>
+            <EndProperty Name="Taskas">
+              <ScalarProperty Name="TaskaId" ColumnName="TaskaId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="TaskaRunNotes" TypeName="TaskasWorkFlowAppModel.TaskaRunNotes" StoreEntitySet="TaskaRunNotes">
+            <EndProperty Name="Notes">
+              <ScalarProperty Name="NoteId" ColumnName="NoteId" />
+            </EndProperty>
+            <EndProperty Name="TaskaRuns">
+              <ScalarProperty Name="TaskaRunId" ColumnName="TaskaRunId" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
