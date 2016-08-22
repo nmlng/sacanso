@@ -7,13 +7,13 @@ namespace TaskasWorkFlowApp.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class correct_ParameterRun_ParameterVAlue : IMigrationMetadata
+    public sealed partial class init_all : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(correct_ParameterRun_ParameterVAlue));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(init_all));
         
         string IMigrationMetadata.Id
         {
-            get { return "201608202321198_correct_ParameterRun_ParameterVAlue"; }
+            get { return "201608221806240_init_all"; }
         }
         
         string IMigrationMetadata.Source

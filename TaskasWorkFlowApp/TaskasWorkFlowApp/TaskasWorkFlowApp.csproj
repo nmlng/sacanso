@@ -201,6 +201,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\TaskasController.cs" />
     <Compile Include="DataLayer\ParameterRunConfiguration.cs" />
     <Compile Include="DataLayer\ParameterConfiguration.cs" />
     <Compile Include="DataLayer\NoteConfiguration.cs" />
@@ -209,13 +210,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201608201715133_init_all.cs" />
-    <Compile Include="Migrations\201608201715133_init_all.Designer.cs">
-      <DependentUpon>201608201715133_init_all.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201608202321198_correct_ParameterRun_ParameterVAlue.cs" />
-    <Compile Include="Migrations\201608202321198_correct_ParameterRun_ParameterVAlue.Designer.cs">
-      <DependentUpon>201608202321198_correct_ParameterRun_ParameterVAlue.cs</DependentUpon>
+    <Compile Include="Migrations\201608221806240_init_all.cs" />
+    <Compile Include="Migrations\201608221806240_init_all.Designer.cs">
+      <DependentUpon>201608221806240_init_all.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -306,6 +303,11 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Taskas\Create.cshtml" />
+    <Content Include="Views\Taskas\Delete.cshtml" />
+    <Content Include="Views\Taskas\Details.cshtml" />
+    <Content Include="Views\Taskas\Edit.cshtml" />
+    <Content Include="Views\Taskas\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -319,11 +321,8 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201608201715133_init_all.resx">
-      <DependentUpon>201608201715133_init_all.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201608202321198_correct_ParameterRun_ParameterVAlue.resx">
-      <DependentUpon>201608202321198_correct_ParameterRun_ParameterVAlue.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201608221806240_init_all.resx">
+      <DependentUpon>201608221806240_init_all.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
