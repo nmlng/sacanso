@@ -60,6 +60,15 @@ namespace TaskasWorkFlowApp.Migrations
         }
       };
 
+      taskaFilha3.Children = new List<TaskaChild>
+      {
+        new TaskaChild
+        {
+          Order = 777,
+          ChildTaska = taskaFilha2
+        }
+      };
+
     }
   }
 }
