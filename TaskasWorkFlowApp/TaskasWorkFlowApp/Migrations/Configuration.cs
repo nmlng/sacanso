@@ -28,7 +28,7 @@ namespace TaskasWorkFlowApp.Migrations
 
       context.SaveChanges();
 
-      ICollection<TaskaChild> TaskaChilds = new List<TaskaChild>();
+      ICollection<TaskaChild> TaskaChildren = new List<TaskaChild>();
 
       var taskaMae = context.Taskas.Single(t => t.TaskaName == "Taska1");
       var taskaFilha1 = context.Taskas.Single(t => t.TaskaName == "Taska2");
@@ -37,19 +37,18 @@ namespace TaskasWorkFlowApp.Migrations
       var taskaFilha4 = context.Taskas.Single(t => t.TaskaName == "Taska5");
 
       var childTaska1 = new TaskaChild { Order = 37, ChildTaska = taskaFilha1 };
-      TaskaChilds.Add(childTaska1);
+      TaskaChildren.Add(childTaska1);
 
       var childTaska2 = new TaskaChild { Order = 69, ChildTaska = taskaFilha2 };
-      TaskaChilds.Add(childTaska2);
+      TaskaChildren.Add(childTaska2);
 
       var childTaska3 = new TaskaChild { Order = 117, ChildTaska = taskaFilha3 };
-      TaskaChilds.Add(childTaska3);
+      TaskaChildren.Add(childTaska3);
 
       var childTaska4 = new TaskaChild { Order = 129, ChildTaska = taskaFilha4 };
-      TaskaChilds.Add(childTaska4);
+      TaskaChildren.Add(childTaska4);
 
-      taskaMae.Children = TaskaChilds;
-
+      taskaMae.Children = TaskaChildren;
 
       taskaFilha4.Children = new List<TaskaChild>
       {
