@@ -27,6 +27,7 @@ namespace TaskasWorkFlowApp.Models
     }
 
     public DbSet<Taska> Taskas { get; set; }
+    public DbSet<TaskaChild> TaskaChildren { get; set; }
     public DbSet<TaskaRun> TaskaRuns { get; set; }
     public DbSet<Note> Notes { get; set; }
     public DbSet<Parameter> Parameters { get; set; }
@@ -35,6 +36,7 @@ namespace TaskasWorkFlowApp.Models
     protected override void OnModelCreating(DbModelBuilder modelBuilder)
     {
       modelBuilder.Configurations.Add(new TaskaConfiguration());
+      modelBuilder.Configurations.Add(new TaskaChildConfiguration()); 
       modelBuilder.Configurations.Add(new TaskaRunConfiguration());
       modelBuilder.Configurations.Add(new NoteConfiguration());
       modelBuilder.Configurations.Add(new ParameterConfiguration());

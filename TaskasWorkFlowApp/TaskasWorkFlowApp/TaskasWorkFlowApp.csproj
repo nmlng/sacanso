@@ -220,14 +220,15 @@
     <Compile Include="DataLayer\ParameterRunConfiguration.cs" />
     <Compile Include="DataLayer\ParameterConfiguration.cs" />
     <Compile Include="DataLayer\NoteConfiguration.cs" />
+    <Compile Include="DataLayer\TaskaChildConfiguration.cs" />
     <Compile Include="DataLayer\TaskaRunConfiguration.cs" />
     <Compile Include="DataLayer\TaskaConfiguration.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201608221806240_init_all.cs" />
-    <Compile Include="Migrations\201608221806240_init_all.Designer.cs">
-      <DependentUpon>201608221806240_init_all.cs</DependentUpon>
+    <Compile Include="Migrations\201608242216035_init.cs" />
+    <Compile Include="Migrations\201608242216035_init.Designer.cs">
+      <DependentUpon>201608242216035_init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model1.Context.cs">
@@ -247,13 +248,13 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\ITreeNodeDotNet3.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\ParameterRun.cs" />
-    <Compile Include="Models\Parameter.cs" />
     <Compile Include="Models\Note.cs" />
-    <Compile Include="Models\TaskaRun.cs" />
+    <Compile Include="Models\Parameter.cs" />
+    <Compile Include="Models\ParameterRun.cs" />
     <Compile Include="Models\Taska.cs" />
+    <Compile Include="Models\TaskaChild.cs" />
+    <Compile Include="Models\TaskaRun.cs" />
     <Compile Include="Notes.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -389,8 +390,8 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201608221806240_init_all.resx">
-      <DependentUpon>201608221806240_init_all.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201608242216035_init.resx">
+      <DependentUpon>201608242216035_init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -1,51 +1,64 @@
+using System.Collections.Generic;
 using TaskasWorkFlowApp.Models;
 
 namespace TaskasWorkFlowApp.Migrations
 {
-  using System;
-  using System.Data.Entity;
-  using System.Data.Entity.Migrations;
-  using System.Linq;
+    using System;
+    using System.Data.Entity;
+    using System.Data.Entity.Migrations;
+    using System.Linq;
 
-  internal sealed class Configuration : DbMigrationsConfiguration<TaskasWorkFlowApp.Models.ApplicationDbContext>
-  {
-    public Configuration()
+    internal sealed class Configuration : DbMigrationsConfiguration<TaskasWorkFlowApp.Models.ApplicationDbContext>
     {
-      AutomaticMigrationsEnabled = false;
-    }
+        public Configuration()
+        {
+            AutomaticMigrationsEnabled = false;
+        }
 
-    protected override void Seed(TaskasWorkFlowApp.Models.ApplicationDbContext context)
-    {
-      //  This method will be called after migrating to the latest version.
-
-      //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-      //  to avoid creating duplicate seed data. E.g.
-      //
-      //    context.People.AddOrUpdate(
-      //      p => p.FullName,
-      //      new Person { FullName = "Andrew Peters" },
-      //      new Person { FullName = "Brice Lambson" },
-      //      new Person { FullName = "Rowan Miller" }
-      //    );
-      //
-
+        protected override void Seed(TaskasWorkFlowApp.Models.ApplicationDbContext context)
+        {
       context.Taskas.AddOrUpdate(
-          t => t.TaskaName,
-          new Taska { TaskaName = "Taska1", Description = "Descreve-mos ", },
-          new Taska { TaskaName = "Taska2", Description = "F1  " },
-          new Taska { TaskaName = "Taska3", Description = "F2 " }
-          );
+            t => t.TaskaName,
+            new Taska { TaskaName = "Taska1", Description = "Descreve-mos ", },
+            new Taska { TaskaName = "Taska2", Description = "F1  " },
+            new Taska { TaskaName = "Taska3", Description = "F2 " },
+            new Taska { TaskaName = "Taska4", Description = "E1  " },
+            new Taska { TaskaName = "Taska5", Description = "E2 " }
+            );
 
       context.SaveChanges();
 
+      ICollection<TaskaChild> TaskaChilds = new List<TaskaChild>();
+
       var taskaMae = context.Taskas.Single(t => t.TaskaName == "Taska1");
-      var taskasFilhas = context.Taskas.Where(c => c.Description.StartsWith("F")).ToList();
-      taskaMae.ChildTaskas = taskasFilhas;
+      var taskaFilha1 = context.Taskas.Single(t => t.TaskaName == "Taska2");
+      var taskaFilha2 = context.Taskas.Single(t => t.TaskaName == "Taska3");
+      var taskaFilha3 = context.Taskas.Single(t => t.TaskaName == "Taska4");
+      var taskaFilha4 = context.Taskas.Single(t => t.TaskaName == "Taska5");
 
-      var taskaMae2 = context.Taskas.Single(t => t.TaskaName == "Taska2");
-      var taskasFilha2 = context.Taskas.Where(c => c.Description.StartsWith("F2")).ToList();
-      taskaMae2.ChildTaskas = taskasFilha2;
+      var childTaska1 = new TaskaChild { Order = 37, ChildTaska = taskaFilha1 };
+      TaskaChilds.Add(childTaska1);
 
+      var childTaska2 = new TaskaChild { Order = 69, ChildTaska = taskaFilha2 };
+      TaskaChilds.Add(childTaska2);
+
+      var childTaska3 = new TaskaChild { Order = 117, ChildTaska = taskaFilha3 };
+      TaskaChilds.Add(childTaska3);
+
+      var childTaska4 = new TaskaChild { Order = 129, ChildTaska = taskaFilha4 };
+      TaskaChilds.Add(childTaska4);
+
+      taskaMae.Children = TaskaChilds;
+
+
+      taskaFilha4.Children = new List<TaskaChild>
+      {
+        new TaskaChild
+        {
+          Order = 434,
+          ChildTaska = taskaMae
+        }
+      };
 
     }
   }
