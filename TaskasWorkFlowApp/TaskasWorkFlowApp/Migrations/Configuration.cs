@@ -79,11 +79,14 @@ namespace TaskasWorkFlowApp.Migrations
 
       var filhasXpto = context.TaskaChilds.Where(s => s.ChildTaska.Description.StartsWith("E")).ToList();
 
-      taskaMae2.Children = filhasXpto.Select(
-        taskaChild => new TaskaChild {
-                          Order = taskaChild.Order,
-                          ChildTaska = taskaChild.ChildTaska
-      }).ToList();
+      taskaMae2.Children = filhasXpto.Select
+        ( 
+          taskaChild => new TaskaChild
+          {
+            Order = taskaChild.Order,
+            ChildTaska = taskaChild.ChildTaska
+          }
+        ).ToList();
 
       //     context.Taskas.Remove(taskaMae);
       // context.TaskaChilds.Remove(childTaska2);

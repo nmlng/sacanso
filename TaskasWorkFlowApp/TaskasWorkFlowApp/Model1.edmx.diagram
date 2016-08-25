@@ -14,8 +14,8 @@
         <EntityTypeShape EntityType="TaskasWorkFlowAppModel.Notes" Width="1.5" PointX="0.625" PointY="5.5" IsExpanded="true" />
         <EntityTypeShape EntityType="TaskasWorkFlowAppModel.ParameterRuns" Width="1.5" PointX="7" PointY="2.25" IsExpanded="true" />
         <EntityTypeShape EntityType="TaskasWorkFlowAppModel.Parameters" Width="1.5" PointX="2.75" PointY="2.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="TaskasWorkFlowAppModel.TaskaChilds" Width="1.5" PointX="2.75" PointY="9" IsExpanded="true" />
-        <EntityTypeShape EntityType="TaskasWorkFlowAppModel.TaskaRunChilds" Width="1.5" PointX="7" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="TaskasWorkFlowAppModel.TaskaChilds" Width="1.5" PointX="2.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TaskasWorkFlowAppModel.TaskaRunChilds" Width="1.5" PointX="7" PointY="8.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TaskasWorkFlowAppModel.TaskaRuns" Width="1.5" PointX="7" PointY="5.5" IsExpanded="true" />
         <EntityTypeShape EntityType="TaskasWorkFlowAppModel.Taskas" Width="1.5" PointX="2.75" PointY="5.5" IsExpanded="true" />
         <AssociationConnector Association="TaskasWorkFlowAppModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
