@@ -13,7 +13,7 @@ namespace TaskasWorkFlowApp.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201608242216035_init"; }
+            get { return "201608251700515_init"; }
         }
         
         string IMigrationMetadata.Source

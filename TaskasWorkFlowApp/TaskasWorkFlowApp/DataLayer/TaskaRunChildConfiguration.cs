@@ -9,17 +9,17 @@ using TaskasWorkFlowApp.Models;
 
 namespace TaskasWorkFlowApp.DataLayer
 {
-  public class TaskaChildConfiguration : EntityTypeConfiguration<TaskaChild>
+  public class TaskaRunChildConfiguration : EntityTypeConfiguration<TaskaRunChild>
   {
-    public TaskaChildConfiguration()
+    public TaskaRunChildConfiguration()
     {
-      HasKey(t => new { t.ParentTaskaId, t.ChildTaskaId });
+      HasKey(t => new { t.ParentTaskaRunId, t.ChildTaskaRunId });
 
-      HasRequired(c => c.ParentTaska)
+      HasRequired(c => c.ParentTaskaRun)
         .WithMany(c => c.Children)
         .WillCascadeOnDelete(false);
 
-      HasRequired(c => c.ChildTaska);
+      HasRequired(c => c.ChildTaskaRun);
 
     }
   }

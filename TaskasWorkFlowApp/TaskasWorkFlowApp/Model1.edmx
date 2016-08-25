@@ -66,12 +66,21 @@
           <Property Name="AccessFailedCount" Type="int" Nullable="false" />
           <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
         </EntityType>
+        <EntityType Name="NoteRuns">
+          <Key>
+            <PropertyRef Name="NoteRunId" />
+          </Key>
+          <Property Name="NoteRunId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NoteText" Type="nvarchar(max)" />
+          <Property Name="TaskaRunId" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Notes">
           <Key>
             <PropertyRef Name="NoteId" />
           </Key>
           <Property Name="NoteId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="NoteText" Type="nvarchar(max)" />
+          <Property Name="TaskaId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="ParameterRuns">
           <Key>
@@ -92,46 +101,30 @@
           <Property Name="ParameterType" Type="int" Nullable="false" />
           <Property Name="TaskaId" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="ParentChildTaska">
+        <EntityType Name="TaskaChilds">
           <Key>
-            <PropertyRef Name="ChildTaskaId" />
             <PropertyRef Name="ParentTaskaId" />
+            <PropertyRef Name="ChildTaskaId" />
           </Key>
-          <Property Name="ChildTaskaId" Type="int" Nullable="false" />
           <Property Name="ParentTaskaId" Type="int" Nullable="false" />
-          <Property Name="Order" Type="int" />
+          <Property Name="ChildTaskaId" Type="int" Nullable="false" />
+          <Property Name="Order" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="ParentChildTaskaRun">
+        <EntityType Name="TaskaRunChilds">
           <Key>
-            <PropertyRef Name="ChildTaskaRunId" />
             <PropertyRef Name="ParentTaskaRunId" />
+            <PropertyRef Name="ChildTaskaRunId" />
           </Key>
-          <Property Name="ChildTaskaRunId" Type="int" Nullable="false" />
           <Property Name="ParentTaskaRunId" Type="int" Nullable="false" />
-          <Property Name="Order" Type="int" />
-        </EntityType>
-        <EntityType Name="TaskaNotes">
-          <Key>
-            <PropertyRef Name="NoteId" />
-            <PropertyRef Name="TaskaId" />
-          </Key>
-          <Property Name="NoteId" Type="int" Nullable="false" />
-          <Property Name="TaskaId" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="TaskaRunNotes">
-          <Key>
-            <PropertyRef Name="NoteId" />
-            <PropertyRef Name="TaskaRunId" />
-          </Key>
-          <Property Name="NoteId" Type="int" Nullable="false" />
-          <Property Name="TaskaRunId" Type="int" Nullable="false" />
+          <Property Name="ChildTaskaRunId" Type="int" Nullable="false" />
+          <Property Name="Order" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="TaskaRuns">
           <Key>
             <PropertyRef Name="TaskaRunId" />
           </Key>
           <Property Name="TaskaRunId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="TaskaRunName" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="TaskaRunName" Type="nvarchar" MaxLength="256" Nullable="false" />
           <Property Name="Status" Type="int" Nullable="false" />
           <Property Name="TaskaId" Type="int" Nullable="false" />
         </EntityType>
@@ -199,6 +192,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_dbo_NoteRuns_dbo_TaskaRuns_TaskaRunId">
+          <End Role="TaskaRuns" Type="Self.TaskaRuns" Multiplicity="1" />
+          <End Role="NoteRuns" Type="Self.NoteRuns" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TaskaRuns">
+              <PropertyRef Name="TaskaRunId" />
+            </Principal>
+            <Dependent Role="NoteRuns">
+              <PropertyRef Name="TaskaRunId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Notes_dbo_Taskas_TaskaId">
+          <End Role="Taskas" Type="Self.Taskas" Multiplicity="1" />
+          <End Role="Notes" Type="Self.Notes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Taskas">
+              <PropertyRef Name="TaskaId" />
+            </Principal>
+            <Dependent Role="Notes">
+              <PropertyRef Name="TaskaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_dbo_ParameterRuns_dbo_Parameters_ParameterId">
           <End Role="Parameters" Type="Self.Parameters" Multiplicity="1" />
           <End Role="ParameterRuns" Type="Self.ParameterRuns" Multiplicity="*" />
@@ -235,107 +252,55 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_dbo_ParentChildTaska_dbo_Taskas_ChildTaskaId">
-          <End Role="Taskas" Type="Self.Taskas" Multiplicity="1" />
-          <End Role="ParentChildTaska" Type="Self.ParentChildTaska" Multiplicity="*" />
+        <Association Name="FK_dbo_TaskaChilds_dbo_Taskas_ChildTaskaId">
+          <End Role="Taskas" Type="Self.Taskas" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TaskaChilds" Type="Self.TaskaChilds" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Taskas">
               <PropertyRef Name="TaskaId" />
             </Principal>
-            <Dependent Role="ParentChildTaska">
+            <Dependent Role="TaskaChilds">
               <PropertyRef Name="ChildTaskaId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_dbo_ParentChildTaska_dbo_Taskas_ParentTaskaId">
+        <Association Name="FK_dbo_TaskaChilds_dbo_Taskas_ParentTaskaId">
           <End Role="Taskas" Type="Self.Taskas" Multiplicity="1" />
-          <End Role="ParentChildTaska" Type="Self.ParentChildTaska" Multiplicity="*" />
+          <End Role="TaskaChilds" Type="Self.TaskaChilds" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Taskas">
               <PropertyRef Name="TaskaId" />
             </Principal>
-            <Dependent Role="ParentChildTaska">
+            <Dependent Role="TaskaChilds">
               <PropertyRef Name="ParentTaskaId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_dbo_ParentChildTaskaRun_dbo_TaskaRuns_ChildTaskaRunId">
-          <End Role="TaskaRuns" Type="Self.TaskaRuns" Multiplicity="1" />
-          <End Role="ParentChildTaskaRun" Type="Self.ParentChildTaskaRun" Multiplicity="*" />
+        <Association Name="FK_dbo_TaskaRunChilds_dbo_TaskaRuns_ChildTaskaRunId">
+          <End Role="TaskaRuns" Type="Self.TaskaRuns" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TaskaRunChilds" Type="Self.TaskaRunChilds" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="TaskaRuns">
               <PropertyRef Name="TaskaRunId" />
             </Principal>
-            <Dependent Role="ParentChildTaskaRun">
+            <Dependent Role="TaskaRunChilds">
               <PropertyRef Name="ChildTaskaRunId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_dbo_ParentChildTaskaRun_dbo_TaskaRuns_ParentTaskaRunId">
+        <Association Name="FK_dbo_TaskaRunChilds_dbo_TaskaRuns_ParentTaskaRunId">
           <End Role="TaskaRuns" Type="Self.TaskaRuns" Multiplicity="1" />
-          <End Role="ParentChildTaskaRun" Type="Self.ParentChildTaskaRun" Multiplicity="*" />
+          <End Role="TaskaRunChilds" Type="Self.TaskaRunChilds" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="TaskaRuns">
               <PropertyRef Name="TaskaRunId" />
             </Principal>
-            <Dependent Role="ParentChildTaskaRun">
+            <Dependent Role="TaskaRunChilds">
               <PropertyRef Name="ParentTaskaRunId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_dbo_TaskaNotes_dbo_Notes_NoteId">
-          <End Role="Notes" Type="Self.Notes" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="TaskaNotes" Type="Self.TaskaNotes" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Notes">
-              <PropertyRef Name="NoteId" />
-            </Principal>
-            <Dependent Role="TaskaNotes">
-              <PropertyRef Name="NoteId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_dbo_TaskaNotes_dbo_Taskas_TaskaId">
-          <End Role="Taskas" Type="Self.Taskas" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="TaskaNotes" Type="Self.TaskaNotes" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Taskas">
-              <PropertyRef Name="TaskaId" />
-            </Principal>
-            <Dependent Role="TaskaNotes">
-              <PropertyRef Name="TaskaId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_dbo_TaskaRunNotes_dbo_Notes_NoteId">
-          <End Role="Notes" Type="Self.Notes" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="TaskaRunNotes" Type="Self.TaskaRunNotes" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Notes">
-              <PropertyRef Name="NoteId" />
-            </Principal>
-            <Dependent Role="TaskaRunNotes">
-              <PropertyRef Name="NoteId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_dbo_TaskaRunNotes_dbo_TaskaRuns_TaskaRunId">
-          <End Role="TaskaRuns" Type="Self.TaskaRuns" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="TaskaRunNotes" Type="Self.TaskaRunNotes" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TaskaRuns">
-              <PropertyRef Name="TaskaRunId" />
-            </Principal>
-            <Dependent Role="TaskaRunNotes">
-              <PropertyRef Name="TaskaRunId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -360,13 +325,12 @@
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NoteRuns" EntityType="Self.NoteRuns" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Notes" EntityType="Self.Notes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ParameterRuns" EntityType="Self.ParameterRuns" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Parameters" EntityType="Self.Parameters" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ParentChildTaska" EntityType="Self.ParentChildTaska" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ParentChildTaskaRun" EntityType="Self.ParentChildTaskaRun" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="TaskaNotes" EntityType="Self.TaskaNotes" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="TaskaRunNotes" EntityType="Self.TaskaRunNotes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TaskaChilds" EntityType="Self.TaskaChilds" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TaskaRunChilds" EntityType="Self.TaskaRunChilds" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TaskaRuns" EntityType="Self.TaskaRuns" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Taskas" EntityType="Self.Taskas" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
@@ -385,6 +349,14 @@
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
           </AssociationSet>
+          <AssociationSet Name="FK_dbo_NoteRuns_dbo_TaskaRuns_TaskaRunId" Association="Self.FK_dbo_NoteRuns_dbo_TaskaRuns_TaskaRunId">
+            <End Role="TaskaRuns" EntitySet="TaskaRuns" />
+            <End Role="NoteRuns" EntitySet="NoteRuns" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Notes_dbo_Taskas_TaskaId" Association="Self.FK_dbo_Notes_dbo_Taskas_TaskaId">
+            <End Role="Taskas" EntitySet="Taskas" />
+            <End Role="Notes" EntitySet="Notes" />
+          </AssociationSet>
           <AssociationSet Name="FK_dbo_ParameterRuns_dbo_Parameters_ParameterId" Association="Self.FK_dbo_ParameterRuns_dbo_Parameters_ParameterId">
             <End Role="Parameters" EntitySet="Parameters" />
             <End Role="ParameterRuns" EntitySet="ParameterRuns" />
@@ -397,37 +369,21 @@
             <End Role="Taskas" EntitySet="Taskas" />
             <End Role="Parameters" EntitySet="Parameters" />
           </AssociationSet>
-          <AssociationSet Name="FK_dbo_ParentChildTaska_dbo_Taskas_ChildTaskaId" Association="Self.FK_dbo_ParentChildTaska_dbo_Taskas_ChildTaskaId">
+          <AssociationSet Name="FK_dbo_TaskaChilds_dbo_Taskas_ChildTaskaId" Association="Self.FK_dbo_TaskaChilds_dbo_Taskas_ChildTaskaId">
             <End Role="Taskas" EntitySet="Taskas" />
-            <End Role="ParentChildTaska" EntitySet="ParentChildTaska" />
+            <End Role="TaskaChilds" EntitySet="TaskaChilds" />
           </AssociationSet>
-          <AssociationSet Name="FK_dbo_ParentChildTaska_dbo_Taskas_ParentTaskaId" Association="Self.FK_dbo_ParentChildTaska_dbo_Taskas_ParentTaskaId">
+          <AssociationSet Name="FK_dbo_TaskaChilds_dbo_Taskas_ParentTaskaId" Association="Self.FK_dbo_TaskaChilds_dbo_Taskas_ParentTaskaId">
             <End Role="Taskas" EntitySet="Taskas" />
-            <End Role="ParentChildTaska" EntitySet="ParentChildTaska" />
+            <End Role="TaskaChilds" EntitySet="TaskaChilds" />
           </AssociationSet>
-          <AssociationSet Name="FK_dbo_ParentChildTaskaRun_dbo_TaskaRuns_ChildTaskaRunId" Association="Self.FK_dbo_ParentChildTaskaRun_dbo_TaskaRuns_ChildTaskaRunId">
+          <AssociationSet Name="FK_dbo_TaskaRunChilds_dbo_TaskaRuns_ChildTaskaRunId" Association="Self.FK_dbo_TaskaRunChilds_dbo_TaskaRuns_ChildTaskaRunId">
             <End Role="TaskaRuns" EntitySet="TaskaRuns" />
-            <End Role="ParentChildTaskaRun" EntitySet="ParentChildTaskaRun" />
+            <End Role="TaskaRunChilds" EntitySet="TaskaRunChilds" />
           </AssociationSet>
-          <AssociationSet Name="FK_dbo_ParentChildTaskaRun_dbo_TaskaRuns_ParentTaskaRunId" Association="Self.FK_dbo_ParentChildTaskaRun_dbo_TaskaRuns_ParentTaskaRunId">
+          <AssociationSet Name="FK_dbo_TaskaRunChilds_dbo_TaskaRuns_ParentTaskaRunId" Association="Self.FK_dbo_TaskaRunChilds_dbo_TaskaRuns_ParentTaskaRunId">
             <End Role="TaskaRuns" EntitySet="TaskaRuns" />
-            <End Role="ParentChildTaskaRun" EntitySet="ParentChildTaskaRun" />
-          </AssociationSet>
-          <AssociationSet Name="FK_dbo_TaskaNotes_dbo_Notes_NoteId" Association="Self.FK_dbo_TaskaNotes_dbo_Notes_NoteId">
-            <End Role="Notes" EntitySet="Notes" />
-            <End Role="TaskaNotes" EntitySet="TaskaNotes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_dbo_TaskaNotes_dbo_Taskas_TaskaId" Association="Self.FK_dbo_TaskaNotes_dbo_Taskas_TaskaId">
-            <End Role="Taskas" EntitySet="Taskas" />
-            <End Role="TaskaNotes" EntitySet="TaskaNotes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_dbo_TaskaRunNotes_dbo_Notes_NoteId" Association="Self.FK_dbo_TaskaRunNotes_dbo_Notes_NoteId">
-            <End Role="Notes" EntitySet="Notes" />
-            <End Role="TaskaRunNotes" EntitySet="TaskaRunNotes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_dbo_TaskaRunNotes_dbo_TaskaRuns_TaskaRunId" Association="Self.FK_dbo_TaskaRunNotes_dbo_TaskaRuns_TaskaRunId">
-            <End Role="TaskaRuns" EntitySet="TaskaRuns" />
-            <End Role="TaskaRunNotes" EntitySet="TaskaRunNotes" />
+            <End Role="TaskaRunChilds" EntitySet="TaskaRunChilds" />
           </AssociationSet>
           <AssociationSet Name="FK_dbo_TaskaRuns_dbo_Taskas_TaskaId" Association="Self.FK_dbo_TaskaRuns_dbo_Taskas_TaskaId">
             <End Role="Taskas" EntitySet="Taskas" />
@@ -498,14 +454,23 @@
           <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
           <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
         </EntityType>
+        <EntityType Name="NoteRuns">
+          <Key>
+            <PropertyRef Name="NoteRunId" />
+          </Key>
+          <Property Name="NoteRunId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NoteText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TaskaRunId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="TaskaRuns" Relationship="Self.FK_dbo_NoteRuns_dbo_TaskaRuns_TaskaRunId" FromRole="NoteRuns" ToRole="TaskaRuns" />
+        </EntityType>
         <EntityType Name="Notes">
           <Key>
             <PropertyRef Name="NoteId" />
           </Key>
           <Property Name="NoteId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="NoteText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Taskas" Relationship="Self.TaskaNotes" FromRole="Notes" ToRole="Taskas" />
-          <NavigationProperty Name="TaskaRuns" Relationship="Self.TaskaRunNotes" FromRole="Notes" ToRole="TaskaRuns" />
+          <Property Name="TaskaId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Taskas" Relationship="Self.FK_dbo_Notes_dbo_Taskas_TaskaId" FromRole="Notes" ToRole="Taskas" />
         </EntityType>
         <EntityType Name="ParameterRuns">
           <Key>
@@ -530,41 +495,41 @@
           <NavigationProperty Name="ParameterRuns" Relationship="Self.FK_dbo_ParameterRuns_dbo_Parameters_ParameterId" FromRole="Parameters" ToRole="ParameterRuns" />
           <NavigationProperty Name="Taskas" Relationship="Self.FK_dbo_Parameters_dbo_Taskas_TaskaId" FromRole="Parameters" ToRole="Taskas" />
         </EntityType>
-        <EntityType Name="ParentChildTaska">
+        <EntityType Name="TaskaChilds">
           <Key>
-            <PropertyRef Name="ChildTaskaId" />
             <PropertyRef Name="ParentTaskaId" />
+            <PropertyRef Name="ChildTaskaId" />
           </Key>
-          <Property Name="ChildTaskaId" Type="Int32" Nullable="false" />
           <Property Name="ParentTaskaId" Type="Int32" Nullable="false" />
-          <Property Name="Order" Type="Int32" />
-          <NavigationProperty Name="Taskas" Relationship="Self.FK_dbo_ParentChildTaska_dbo_Taskas_ChildTaskaId" FromRole="ParentChildTaska" ToRole="Taskas" />
-          <NavigationProperty Name="Taskas1" Relationship="Self.FK_dbo_ParentChildTaska_dbo_Taskas_ParentTaskaId" FromRole="ParentChildTaska" ToRole="Taskas" />
+          <Property Name="ChildTaskaId" Type="Int32" Nullable="false" />
+          <Property Name="Order" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Taskas" Relationship="Self.FK_dbo_TaskaChilds_dbo_Taskas_ChildTaskaId" FromRole="TaskaChilds" ToRole="Taskas" />
+          <NavigationProperty Name="Taskas1" Relationship="Self.FK_dbo_TaskaChilds_dbo_Taskas_ParentTaskaId" FromRole="TaskaChilds" ToRole="Taskas" />
         </EntityType>
-        <EntityType Name="ParentChildTaskaRun">
+        <EntityType Name="TaskaRunChilds">
           <Key>
-            <PropertyRef Name="ChildTaskaRunId" />
             <PropertyRef Name="ParentTaskaRunId" />
+            <PropertyRef Name="ChildTaskaRunId" />
           </Key>
-          <Property Name="ChildTaskaRunId" Type="Int32" Nullable="false" />
           <Property Name="ParentTaskaRunId" Type="Int32" Nullable="false" />
-          <Property Name="Order" Type="Int32" />
-          <NavigationProperty Name="TaskaRuns" Relationship="Self.FK_dbo_ParentChildTaskaRun_dbo_TaskaRuns_ChildTaskaRunId" FromRole="ParentChildTaskaRun" ToRole="TaskaRuns" />
-          <NavigationProperty Name="TaskaRuns1" Relationship="Self.FK_dbo_ParentChildTaskaRun_dbo_TaskaRuns_ParentTaskaRunId" FromRole="ParentChildTaskaRun" ToRole="TaskaRuns" />
+          <Property Name="ChildTaskaRunId" Type="Int32" Nullable="false" />
+          <Property Name="Order" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="TaskaRuns" Relationship="Self.FK_dbo_TaskaRunChilds_dbo_TaskaRuns_ChildTaskaRunId" FromRole="TaskaRunChilds" ToRole="TaskaRuns" />
+          <NavigationProperty Name="TaskaRuns1" Relationship="Self.FK_dbo_TaskaRunChilds_dbo_TaskaRuns_ParentTaskaRunId" FromRole="TaskaRunChilds" ToRole="TaskaRuns" />
         </EntityType>
         <EntityType Name="TaskaRuns">
           <Key>
             <PropertyRef Name="TaskaRunId" />
           </Key>
           <Property Name="TaskaRunId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TaskaRunName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TaskaRunName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Status" Type="Int32" Nullable="false" />
           <Property Name="TaskaId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="NoteRuns" Relationship="Self.FK_dbo_NoteRuns_dbo_TaskaRuns_TaskaRunId" FromRole="TaskaRuns" ToRole="NoteRuns" />
           <NavigationProperty Name="ParameterRuns" Relationship="Self.FK_dbo_ParameterRuns_dbo_TaskaRuns_TaskaRunId" FromRole="TaskaRuns" ToRole="ParameterRuns" />
-          <NavigationProperty Name="ParentChildTaskaRun" Relationship="Self.FK_dbo_ParentChildTaskaRun_dbo_TaskaRuns_ChildTaskaRunId" FromRole="TaskaRuns" ToRole="ParentChildTaskaRun" />
-          <NavigationProperty Name="ParentChildTaskaRun1" Relationship="Self.FK_dbo_ParentChildTaskaRun_dbo_TaskaRuns_ParentTaskaRunId" FromRole="TaskaRuns" ToRole="ParentChildTaskaRun" />
+          <NavigationProperty Name="TaskaRunChilds" Relationship="Self.FK_dbo_TaskaRunChilds_dbo_TaskaRuns_ChildTaskaRunId" FromRole="TaskaRuns" ToRole="TaskaRunChilds" />
+          <NavigationProperty Name="TaskaRunChilds1" Relationship="Self.FK_dbo_TaskaRunChilds_dbo_TaskaRuns_ParentTaskaRunId" FromRole="TaskaRuns" ToRole="TaskaRunChilds" />
           <NavigationProperty Name="Taskas" Relationship="Self.FK_dbo_TaskaRuns_dbo_Taskas_TaskaId" FromRole="TaskaRuns" ToRole="Taskas" />
-          <NavigationProperty Name="Notes" Relationship="Self.TaskaRunNotes" FromRole="TaskaRuns" ToRole="Notes" />
         </EntityType>
         <EntityType Name="Taskas">
           <Key>
@@ -573,11 +538,11 @@
           <Property Name="TaskaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TaskaName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Notes" Relationship="Self.FK_dbo_Notes_dbo_Taskas_TaskaId" FromRole="Taskas" ToRole="Notes" />
           <NavigationProperty Name="Parameters" Relationship="Self.FK_dbo_Parameters_dbo_Taskas_TaskaId" FromRole="Taskas" ToRole="Parameters" />
-          <NavigationProperty Name="ParentChildTaska" Relationship="Self.FK_dbo_ParentChildTaska_dbo_Taskas_ChildTaskaId" FromRole="Taskas" ToRole="ParentChildTaska" />
-          <NavigationProperty Name="ParentChildTaska1" Relationship="Self.FK_dbo_ParentChildTaska_dbo_Taskas_ParentTaskaId" FromRole="Taskas" ToRole="ParentChildTaska" />
+          <NavigationProperty Name="TaskaChilds" Relationship="Self.FK_dbo_TaskaChilds_dbo_Taskas_ChildTaskaId" FromRole="Taskas" ToRole="TaskaChilds" />
+          <NavigationProperty Name="TaskaChilds1" Relationship="Self.FK_dbo_TaskaChilds_dbo_Taskas_ParentTaskaId" FromRole="Taskas" ToRole="TaskaChilds" />
           <NavigationProperty Name="TaskaRuns" Relationship="Self.FK_dbo_TaskaRuns_dbo_Taskas_TaskaId" FromRole="Taskas" ToRole="TaskaRuns" />
-          <NavigationProperty Name="Notes" Relationship="Self.TaskaNotes" FromRole="Taskas" ToRole="Notes" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
@@ -604,6 +569,30 @@
             </Principal>
             <Dependent Role="AspNetUserLogins">
               <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_NoteRuns_dbo_TaskaRuns_TaskaRunId">
+          <End Role="TaskaRuns" Type="Self.TaskaRuns" Multiplicity="1" />
+          <End Role="NoteRuns" Type="Self.NoteRuns" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TaskaRuns">
+              <PropertyRef Name="TaskaRunId" />
+            </Principal>
+            <Dependent Role="NoteRuns">
+              <PropertyRef Name="TaskaRunId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Notes_dbo_Taskas_TaskaId">
+          <End Role="Taskas" Type="Self.Taskas" Multiplicity="1" />
+          <End Role="Notes" Type="Self.Notes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Taskas">
+              <PropertyRef Name="TaskaId" />
+            </Principal>
+            <Dependent Role="Notes">
+              <PropertyRef Name="TaskaId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -643,50 +632,54 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_dbo_ParentChildTaska_dbo_Taskas_ChildTaskaId">
-          <End Role="Taskas" Type="Self.Taskas" Multiplicity="1" />
-          <End Role="ParentChildTaska" Type="Self.ParentChildTaska" Multiplicity="*" />
+        <Association Name="FK_dbo_TaskaChilds_dbo_Taskas_ChildTaskaId">
+          <End Role="Taskas" Type="Self.Taskas" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TaskaChilds" Type="Self.TaskaChilds" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Taskas">
               <PropertyRef Name="TaskaId" />
             </Principal>
-            <Dependent Role="ParentChildTaska">
+            <Dependent Role="TaskaChilds">
               <PropertyRef Name="ChildTaskaId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_dbo_ParentChildTaska_dbo_Taskas_ParentTaskaId">
+        <Association Name="FK_dbo_TaskaChilds_dbo_Taskas_ParentTaskaId">
           <End Role="Taskas" Type="Self.Taskas" Multiplicity="1" />
-          <End Role="ParentChildTaska" Type="Self.ParentChildTaska" Multiplicity="*" />
+          <End Role="TaskaChilds" Type="Self.TaskaChilds" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Taskas">
               <PropertyRef Name="TaskaId" />
             </Principal>
-            <Dependent Role="ParentChildTaska">
+            <Dependent Role="TaskaChilds">
               <PropertyRef Name="ParentTaskaId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_dbo_ParentChildTaskaRun_dbo_TaskaRuns_ChildTaskaRunId">
-          <End Role="TaskaRuns" Type="Self.TaskaRuns" Multiplicity="1" />
-          <End Role="ParentChildTaskaRun" Type="Self.ParentChildTaskaRun" Multiplicity="*" />
+        <Association Name="FK_dbo_TaskaRunChilds_dbo_TaskaRuns_ChildTaskaRunId">
+          <End Role="TaskaRuns" Type="Self.TaskaRuns" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TaskaRunChilds" Type="Self.TaskaRunChilds" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="TaskaRuns">
               <PropertyRef Name="TaskaRunId" />
             </Principal>
-            <Dependent Role="ParentChildTaskaRun">
+            <Dependent Role="TaskaRunChilds">
               <PropertyRef Name="ChildTaskaRunId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_dbo_ParentChildTaskaRun_dbo_TaskaRuns_ParentTaskaRunId">
+        <Association Name="FK_dbo_TaskaRunChilds_dbo_TaskaRuns_ParentTaskaRunId">
           <End Role="TaskaRuns" Type="Self.TaskaRuns" Multiplicity="1" />
-          <End Role="ParentChildTaskaRun" Type="Self.ParentChildTaskaRun" Multiplicity="*" />
+          <End Role="TaskaRunChilds" Type="Self.TaskaRunChilds" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="TaskaRuns">
               <PropertyRef Name="TaskaRunId" />
             </Principal>
-            <Dependent Role="ParentChildTaskaRun">
+            <Dependent Role="TaskaRunChilds">
               <PropertyRef Name="ParentTaskaRunId" />
             </Dependent>
           </ReferentialConstraint>
@@ -709,25 +702,18 @@
           <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="*" />
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="*" />
         </Association>
-        <Association Name="TaskaNotes">
-          <End Role="Notes" Type="Self.Notes" Multiplicity="*" />
-          <End Role="Taskas" Type="Self.Taskas" Multiplicity="*" />
-        </Association>
-        <Association Name="TaskaRunNotes">
-          <End Role="Notes" Type="Self.Notes" Multiplicity="*" />
-          <End Role="TaskaRuns" Type="Self.TaskaRuns" Multiplicity="*" />
-        </Association>
-        <EntityContainer Name="TaskasWorkFlowAppEntities2" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="TaskasWorkFlowAppEntities8" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" />
           <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" />
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" />
+          <EntitySet Name="NoteRuns" EntityType="Self.NoteRuns" />
           <EntitySet Name="Notes" EntityType="Self.Notes" />
           <EntitySet Name="ParameterRuns" EntityType="Self.ParameterRuns" />
           <EntitySet Name="Parameters" EntityType="Self.Parameters" />
-          <EntitySet Name="ParentChildTaska" EntityType="Self.ParentChildTaska" />
-          <EntitySet Name="ParentChildTaskaRun" EntityType="Self.ParentChildTaskaRun" />
+          <EntitySet Name="TaskaChilds" EntityType="Self.TaskaChilds" />
+          <EntitySet Name="TaskaRunChilds" EntityType="Self.TaskaRunChilds" />
           <EntitySet Name="TaskaRuns" EntityType="Self.TaskaRuns" />
           <EntitySet Name="Taskas" EntityType="Self.Taskas" />
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
@@ -737,6 +723,14 @@
           <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_NoteRuns_dbo_TaskaRuns_TaskaRunId" Association="Self.FK_dbo_NoteRuns_dbo_TaskaRuns_TaskaRunId">
+            <End Role="TaskaRuns" EntitySet="TaskaRuns" />
+            <End Role="NoteRuns" EntitySet="NoteRuns" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Notes_dbo_Taskas_TaskaId" Association="Self.FK_dbo_Notes_dbo_Taskas_TaskaId">
+            <End Role="Taskas" EntitySet="Taskas" />
+            <End Role="Notes" EntitySet="Notes" />
           </AssociationSet>
           <AssociationSet Name="FK_dbo_ParameterRuns_dbo_Parameters_ParameterId" Association="Self.FK_dbo_ParameterRuns_dbo_Parameters_ParameterId">
             <End Role="Parameters" EntitySet="Parameters" />
@@ -750,21 +744,21 @@
             <End Role="Taskas" EntitySet="Taskas" />
             <End Role="Parameters" EntitySet="Parameters" />
           </AssociationSet>
-          <AssociationSet Name="FK_dbo_ParentChildTaska_dbo_Taskas_ChildTaskaId" Association="Self.FK_dbo_ParentChildTaska_dbo_Taskas_ChildTaskaId">
+          <AssociationSet Name="FK_dbo_TaskaChilds_dbo_Taskas_ChildTaskaId" Association="Self.FK_dbo_TaskaChilds_dbo_Taskas_ChildTaskaId">
             <End Role="Taskas" EntitySet="Taskas" />
-            <End Role="ParentChildTaska" EntitySet="ParentChildTaska" />
+            <End Role="TaskaChilds" EntitySet="TaskaChilds" />
           </AssociationSet>
-          <AssociationSet Name="FK_dbo_ParentChildTaska_dbo_Taskas_ParentTaskaId" Association="Self.FK_dbo_ParentChildTaska_dbo_Taskas_ParentTaskaId">
+          <AssociationSet Name="FK_dbo_TaskaChilds_dbo_Taskas_ParentTaskaId" Association="Self.FK_dbo_TaskaChilds_dbo_Taskas_ParentTaskaId">
             <End Role="Taskas" EntitySet="Taskas" />
-            <End Role="ParentChildTaska" EntitySet="ParentChildTaska" />
+            <End Role="TaskaChilds" EntitySet="TaskaChilds" />
           </AssociationSet>
-          <AssociationSet Name="FK_dbo_ParentChildTaskaRun_dbo_TaskaRuns_ChildTaskaRunId" Association="Self.FK_dbo_ParentChildTaskaRun_dbo_TaskaRuns_ChildTaskaRunId">
+          <AssociationSet Name="FK_dbo_TaskaRunChilds_dbo_TaskaRuns_ChildTaskaRunId" Association="Self.FK_dbo_TaskaRunChilds_dbo_TaskaRuns_ChildTaskaRunId">
             <End Role="TaskaRuns" EntitySet="TaskaRuns" />
-            <End Role="ParentChildTaskaRun" EntitySet="ParentChildTaskaRun" />
+            <End Role="TaskaRunChilds" EntitySet="TaskaRunChilds" />
           </AssociationSet>
-          <AssociationSet Name="FK_dbo_ParentChildTaskaRun_dbo_TaskaRuns_ParentTaskaRunId" Association="Self.FK_dbo_ParentChildTaskaRun_dbo_TaskaRuns_ParentTaskaRunId">
+          <AssociationSet Name="FK_dbo_TaskaRunChilds_dbo_TaskaRuns_ParentTaskaRunId" Association="Self.FK_dbo_TaskaRunChilds_dbo_TaskaRuns_ParentTaskaRunId">
             <End Role="TaskaRuns" EntitySet="TaskaRuns" />
-            <End Role="ParentChildTaskaRun" EntitySet="ParentChildTaskaRun" />
+            <End Role="TaskaRunChilds" EntitySet="TaskaRunChilds" />
           </AssociationSet>
           <AssociationSet Name="FK_dbo_TaskaRuns_dbo_Taskas_TaskaId" Association="Self.FK_dbo_TaskaRuns_dbo_Taskas_TaskaId">
             <End Role="Taskas" EntitySet="Taskas" />
@@ -774,21 +768,13 @@
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
-          <AssociationSet Name="TaskaNotes" Association="Self.TaskaNotes">
-            <End Role="Notes" EntitySet="Notes" />
-            <End Role="Taskas" EntitySet="Taskas" />
-          </AssociationSet>
-          <AssociationSet Name="TaskaRunNotes" Association="Self.TaskaRunNotes">
-            <End Role="Notes" EntitySet="Notes" />
-            <End Role="TaskaRuns" EntitySet="TaskaRuns" />
-          </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="TaskasWorkFlowAppModelStoreContainer" CdmEntityContainer="TaskasWorkFlowAppEntities2">
+        <EntityContainerMapping StorageEntityContainer="TaskasWorkFlowAppModelStoreContainer" CdmEntityContainer="TaskasWorkFlowAppEntities8">
           <EntitySetMapping Name="C__MigrationHistory">
             <EntityTypeMapping TypeName="TaskasWorkFlowAppModel.C__MigrationHistory">
               <MappingFragment StoreEntitySet="__MigrationHistory">
@@ -844,11 +830,21 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="NoteRuns">
+            <EntityTypeMapping TypeName="TaskasWorkFlowAppModel.NoteRuns">
+              <MappingFragment StoreEntitySet="NoteRuns">
+                <ScalarProperty Name="NoteRunId" ColumnName="NoteRunId" />
+                <ScalarProperty Name="NoteText" ColumnName="NoteText" />
+                <ScalarProperty Name="TaskaRunId" ColumnName="TaskaRunId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Notes">
             <EntityTypeMapping TypeName="TaskasWorkFlowAppModel.Notes">
               <MappingFragment StoreEntitySet="Notes">
                 <ScalarProperty Name="NoteId" ColumnName="NoteId" />
                 <ScalarProperty Name="NoteText" ColumnName="NoteText" />
+                <ScalarProperty Name="TaskaId" ColumnName="TaskaId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -873,20 +869,20 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ParentChildTaska">
-            <EntityTypeMapping TypeName="TaskasWorkFlowAppModel.ParentChildTaska">
-              <MappingFragment StoreEntitySet="ParentChildTaska">
-                <ScalarProperty Name="ChildTaskaId" ColumnName="ChildTaskaId" />
+          <EntitySetMapping Name="TaskaChilds">
+            <EntityTypeMapping TypeName="TaskasWorkFlowAppModel.TaskaChilds">
+              <MappingFragment StoreEntitySet="TaskaChilds">
                 <ScalarProperty Name="ParentTaskaId" ColumnName="ParentTaskaId" />
+                <ScalarProperty Name="ChildTaskaId" ColumnName="ChildTaskaId" />
                 <ScalarProperty Name="Order" ColumnName="Order" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ParentChildTaskaRun">
-            <EntityTypeMapping TypeName="TaskasWorkFlowAppModel.ParentChildTaskaRun">
-              <MappingFragment StoreEntitySet="ParentChildTaskaRun">
-                <ScalarProperty Name="ChildTaskaRunId" ColumnName="ChildTaskaRunId" />
+          <EntitySetMapping Name="TaskaRunChilds">
+            <EntityTypeMapping TypeName="TaskasWorkFlowAppModel.TaskaRunChilds">
+              <MappingFragment StoreEntitySet="TaskaRunChilds">
                 <ScalarProperty Name="ParentTaskaRunId" ColumnName="ParentTaskaRunId" />
+                <ScalarProperty Name="ChildTaskaRunId" ColumnName="ChildTaskaRunId" />
                 <ScalarProperty Name="Order" ColumnName="Order" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -916,22 +912,6 @@
             </EndProperty>
             <EndProperty Name="AspNetUsers">
               <ScalarProperty Name="Id" ColumnName="UserId" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="TaskaNotes" TypeName="TaskasWorkFlowAppModel.TaskaNotes" StoreEntitySet="TaskaNotes">
-            <EndProperty Name="Notes">
-              <ScalarProperty Name="NoteId" ColumnName="NoteId" />
-            </EndProperty>
-            <EndProperty Name="Taskas">
-              <ScalarProperty Name="TaskaId" ColumnName="TaskaId" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="TaskaRunNotes" TypeName="TaskasWorkFlowAppModel.TaskaRunNotes" StoreEntitySet="TaskaRunNotes">
-            <EndProperty Name="Notes">
-              <ScalarProperty Name="NoteId" ColumnName="NoteId" />
-            </EndProperty>
-            <EndProperty Name="TaskaRuns">
-              <ScalarProperty Name="TaskaRunId" ColumnName="TaskaRunId" />
             </EndProperty>
           </AssociationSetMapping>
         </EntityContainerMapping>

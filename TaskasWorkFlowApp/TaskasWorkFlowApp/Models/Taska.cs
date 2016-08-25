@@ -12,9 +12,7 @@ namespace TaskasWorkFlowApp.Models
     public int Id { get; set; }
     public string TaskaName { get; set; }
     public string Description { get; set; }
-
     public ICollection<TaskaChild> Children { get; set; }
-
     public ICollection<Note> Notes { get; set; }
   }
 }

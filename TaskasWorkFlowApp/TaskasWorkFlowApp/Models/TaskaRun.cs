@@ -9,17 +9,10 @@ namespace TaskasWorkFlowApp.Models
 {
   public class TaskaRun 
   {
-
-    public TaskaRun()
-    {
-      ParenTaskaRuns = new HashSet<TaskaRun>();
-      ChildTaskaRuns = new HashSet<TaskaRun>();
-    }
-
     public int Id { get; set; }
 
     [Required(ErrorMessage = "You must enter a taskaRun name.")]
-    [StringLength(20, ErrorMessage = "TaskaRun names must be 20 characters or shorter.")]
+    [StringLength(256, ErrorMessage = "TaskaRun names must be 256 characters or shorter.")]
     [Display(Name = "TaskaRun")]
     public string TaskaRunName { get; set; }
     public Status Status { get; set; }
@@ -28,10 +21,8 @@ namespace TaskasWorkFlowApp.Models
     [Display(Name = "Taska")]
     public int TaskaId { get; set; }
 
-    public ICollection<TaskaRun> ParenTaskaRuns { get; set; }
-    public ICollection<TaskaRun> ChildTaskaRuns { get; set; }
-
-    public ICollection<Note> Notes { get; set; }
+    public ICollection<TaskaRunChild> Children { get; set; }
+    public ICollection<NoteRun> Notes { get; set; }
 
   }
 

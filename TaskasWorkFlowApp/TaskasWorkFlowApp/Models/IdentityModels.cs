@@ -1,4 +1,5 @@
 ﻿using System.Data.Entity;
+using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
@@ -27,20 +28,28 @@ namespace TaskasWorkFlowApp.Models
     }
 
     public DbSet<Taska> Taskas { get; set; }
-    public DbSet<TaskaChild> TaskaChildren { get; set; }
-    public DbSet<TaskaRun> TaskaRuns { get; set; }
+    public DbSet<TaskaChild> TaskaChilds { get; set; }
     public DbSet<Note> Notes { get; set; }
     public DbSet<Parameter> Parameters { get; set; }
+
+    public DbSet<TaskaRun> TaskaRuns { get; set; }
+    public DbSet<TaskaRunChild> TaskaRunChilds { get; set; }
+    public DbSet<NoteRun> NoteRuns { get; set; }
     public DbSet<ParameterRun> ParameterRuns { get; set; }
 
     protected override void OnModelCreating(DbModelBuilder modelBuilder)
     {
+//      modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
+
       modelBuilder.Configurations.Add(new TaskaConfiguration());
       modelBuilder.Configurations.Add(new TaskaChildConfiguration()); 
       modelBuilder.Configurations.Add(new TaskaRunConfiguration());
+      modelBuilder.Configurations.Add(new TaskaRunChildConfiguration());
       modelBuilder.Configurations.Add(new NoteConfiguration());
+      modelBuilder.Configurations.Add(new NoteRunConfiguration());
       modelBuilder.Configurations.Add(new ParameterConfiguration());
       modelBuilder.Configurations.Add(new ParameterRunConfiguration());
+
 
       base.OnModelCreating(modelBuilder);
     }

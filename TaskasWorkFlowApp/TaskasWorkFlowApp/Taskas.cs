@@ -17,11 +17,11 @@ namespace TaskasWorkFlowApp
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Taskas()
         {
-            this.Parameters = new HashSet<Parameters>();
-            this.ParentChildTaska = new HashSet<ParentChildTaska>();
-            this.ParentChildTaska1 = new HashSet<ParentChildTaska>();
-            this.TaskaRuns = new HashSet<TaskaRuns>();
             this.Notes = new HashSet<Notes>();
+            this.Parameters = new HashSet<Parameters>();
+            this.TaskaChilds = new HashSet<TaskaChilds>();
+            this.TaskaChilds1 = new HashSet<TaskaChilds>();
+            this.TaskaRuns = new HashSet<TaskaRuns>();
         }
     
         public int TaskaId { get; set; }
@@ -29,14 +29,14 @@ namespace TaskasWorkFlowApp
         public string Description { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Notes> Notes { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Parameters> Parameters { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ParentChildTaska> ParentChildTaska { get; set; }
+        public virtual ICollection<TaskaChilds> TaskaChilds { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ParentChildTaska> ParentChildTaska1 { get; set; }
+        public virtual ICollection<TaskaChilds> TaskaChilds1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TaskaRuns> TaskaRuns { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Notes> Notes { get; set; }
     }
 }

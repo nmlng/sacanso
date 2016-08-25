@@ -9,11 +9,16 @@ using TaskasWorkFlowApp.Models;
 
 namespace TaskasWorkFlowApp.DataLayer
 {
-  public class TaskaRunConfiguration : EntityTypeConfiguration<TaskaRun>
+  public class NoteRunConfiguration : EntityTypeConfiguration<NoteRun>
   {
-    public TaskaRunConfiguration()
+    public NoteRunConfiguration()
     {
-      Property(c => c.Id).HasColumnName("TaskaRunId");
+      Property(m => m.Id).HasColumnName("NoteRunId");
+
+      HasRequired(c => c.TaskaRun)
+        .WithMany(c => c.Notes)
+        .WillCascadeOnDelete(false);
+
     }
   }
 }

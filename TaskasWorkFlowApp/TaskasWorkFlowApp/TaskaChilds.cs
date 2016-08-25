@@ -12,11 +12,11 @@ namespace TaskasWorkFlowApp
     using System;
     using System.Collections.Generic;
     
-    public partial class ParentChildTaska
+    public partial class TaskaChilds
     {
-        public int ChildTaskaId { get; set; }
         public int ParentTaskaId { get; set; }
-        public Nullable<int> Order { get; set; }
+        public int ChildTaskaId { get; set; }
+        public int Order { get; set; }
     
         public virtual Taskas Taskas { get; set; }
         public virtual Taskas Taskas1 { get; set; }

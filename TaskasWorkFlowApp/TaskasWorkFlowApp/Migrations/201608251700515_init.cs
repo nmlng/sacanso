@@ -8,13 +8,43 @@ namespace TaskasWorkFlowApp.Migrations
         public override void Up()
         {
             CreateTable(
-                "dbo.Notes",
+                "dbo.NoteRuns",
                 c => new
                     {
-                        NoteId = c.Int(nullable: false, identity: true),
+                        NoteRunId = c.Int(nullable: false, identity: true),
                         NoteText = c.String(),
+                        TaskaRunId = c.Int(nullable: false),
                     })
-                .PrimaryKey(t => t.NoteId);
+                .PrimaryKey(t => t.NoteRunId)
+                .ForeignKey("dbo.TaskaRuns", t => t.TaskaRunId)
+                .Index(t => t.TaskaRunId);
+            
+            CreateTable(
+                "dbo.TaskaRuns",
+                c => new
+                    {
+                        TaskaRunId = c.Int(nullable: false, identity: true),
+                        TaskaRunName = c.String(nullable: false, maxLength: 256),
+                        Status = c.Int(nullable: false),
+                        TaskaId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.TaskaRunId)
+                .ForeignKey("dbo.Taskas", t => t.TaskaId, cascadeDelete: true)
+                .Index(t => t.TaskaId);
+            
+            CreateTable(
+                "dbo.TaskaRunChilds",
+                c => new
+                    {
+                        ParentTaskaRunId = c.Int(nullable: false),
+                        ChildTaskaRunId = c.Int(nullable: false),
+                        Order = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => new { t.ParentTaskaRunId, t.ChildTaskaRunId })
+                .ForeignKey("dbo.TaskaRuns", t => t.ChildTaskaRunId, cascadeDelete: true)
+                .ForeignKey("dbo.TaskaRuns", t => t.ParentTaskaRunId)
+                .Index(t => t.ParentTaskaRunId)
+                .Index(t => t.ChildTaskaRunId);
             
             CreateTable(
                 "dbo.Taskas",
@@ -41,16 +71,15 @@ namespace TaskasWorkFlowApp.Migrations
                 .Index(t => t.ChildTaskaId);
             
             CreateTable(
-                "dbo.TaskaRuns",
+                "dbo.Notes",
                 c => new
                     {
-                        TaskaRunId = c.Int(nullable: false, identity: true),
-                        TaskaRunName = c.String(nullable: false, maxLength: 20),
-                        Status = c.Int(nullable: false),
+                        NoteId = c.Int(nullable: false, identity: true),
+                        NoteText = c.String(),
                         TaskaId = c.Int(nullable: false),
                     })
-                .PrimaryKey(t => t.TaskaRunId)
-                .ForeignKey("dbo.Taskas", t => t.TaskaId, cascadeDelete: true)
+                .PrimaryKey(t => t.NoteId)
+                .ForeignKey("dbo.Taskas", t => t.TaskaId)
                 .Index(t => t.TaskaId);
             
             CreateTable(
@@ -150,45 +179,6 @@ namespace TaskasWorkFlowApp.Migrations
                 .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
                 .Index(t => t.UserId);
             
-            CreateTable(
-                "dbo.TaskaNotes",
-                c => new
-                    {
-                        NoteId = c.Int(nullable: false),
-                        TaskaId = c.Int(nullable: false),
-                    })
-                .PrimaryKey(t => new { t.NoteId, t.TaskaId })
-                .ForeignKey("dbo.Notes", t => t.NoteId, cascadeDelete: true)
-                .ForeignKey("dbo.Taskas", t => t.TaskaId, cascadeDelete: true)
-                .Index(t => t.NoteId)
-                .Index(t => t.TaskaId);
-            
-            CreateTable(
-                "dbo.ParentChildTaskaRun",
-                c => new
-                    {
-                        ChildTaskaRunId = c.Int(nullable: false),
-                        ParentTaskaRunId = c.Int(nullable: false),
-                    })
-                .PrimaryKey(t => new { t.ChildTaskaRunId, t.ParentTaskaRunId })
-                .ForeignKey("dbo.TaskaRuns", t => t.ChildTaskaRunId)
-                .ForeignKey("dbo.TaskaRuns", t => t.ParentTaskaRunId)
-                .Index(t => t.ChildTaskaRunId)
-                .Index(t => t.ParentTaskaRunId);
-            
-            CreateTable(
-                "dbo.TaskaRunNotes",
-                c => new
-                    {
-                        NoteId = c.Int(nullable: false),
-                        TaskaRunId = c.Int(nullable: false),
-                    })
-                .PrimaryKey(t => new { t.NoteId, t.TaskaRunId })
-                .ForeignKey("dbo.Notes", t => t.NoteId, cascadeDelete: true)
-                .ForeignKey("dbo.TaskaRuns", t => t.TaskaRunId, cascadeDelete: true)
-                .Index(t => t.NoteId)
-                .Index(t => t.TaskaRunId);
-            
         }
         
         public override void Down()
@@ -200,21 +190,13 @@ namespace TaskasWorkFlowApp.Migrations
             DropForeignKey("dbo.ParameterRuns", "TaskaRunId", "dbo.TaskaRuns");
             DropForeignKey("dbo.ParameterRuns", "ParameterId", "dbo.Parameters");
             DropForeignKey("dbo.Parameters", "TaskaId", "dbo.Taskas");
-            DropForeignKey("dbo.TaskaRunNotes", "TaskaRunId", "dbo.TaskaRuns");
-            DropForeignKey("dbo.TaskaRunNotes", "NoteId", "dbo.Notes");
+            DropForeignKey("dbo.NoteRuns", "TaskaRunId", "dbo.TaskaRuns");
             DropForeignKey("dbo.TaskaRuns", "TaskaId", "dbo.Taskas");
-            DropForeignKey("dbo.ParentChildTaskaRun", "ParentTaskaRunId", "dbo.TaskaRuns");
-            DropForeignKey("dbo.ParentChildTaskaRun", "ChildTaskaRunId", "dbo.TaskaRuns");
-            DropForeignKey("dbo.TaskaNotes", "TaskaId", "dbo.Taskas");
-            DropForeignKey("dbo.TaskaNotes", "NoteId", "dbo.Notes");
+            DropForeignKey("dbo.Notes", "TaskaId", "dbo.Taskas");
             DropForeignKey("dbo.TaskaChilds", "ParentTaskaId", "dbo.Taskas");
             DropForeignKey("dbo.TaskaChilds", "ChildTaskaId", "dbo.Taskas");
-            DropIndex("dbo.TaskaRunNotes", new[] { "TaskaRunId" });
-            DropIndex("dbo.TaskaRunNotes", new[] { "NoteId" });
-            DropIndex("dbo.ParentChildTaskaRun", new[] { "ParentTaskaRunId" });
-            DropIndex("dbo.ParentChildTaskaRun", new[] { "ChildTaskaRunId" });
-            DropIndex("dbo.TaskaNotes", new[] { "TaskaId" });
-            DropIndex("dbo.TaskaNotes", new[] { "NoteId" });
+            DropForeignKey("dbo.TaskaRunChilds", "ParentTaskaRunId", "dbo.TaskaRuns");
+            DropForeignKey("dbo.TaskaRunChilds", "ChildTaskaRunId", "dbo.TaskaRuns");
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
@@ -224,12 +206,13 @@ namespace TaskasWorkFlowApp.Migrations
             DropIndex("dbo.Parameters", new[] { "TaskaId" });
             DropIndex("dbo.ParameterRuns", new[] { "TaskaRunId" });
             DropIndex("dbo.ParameterRuns", new[] { "ParameterId" });
-            DropIndex("dbo.TaskaRuns", new[] { "TaskaId" });
+            DropIndex("dbo.Notes", new[] { "TaskaId" });
             DropIndex("dbo.TaskaChilds", new[] { "ChildTaskaId" });
             DropIndex("dbo.TaskaChilds", new[] { "ParentTaskaId" });
-            DropTable("dbo.TaskaRunNotes");
-            DropTable("dbo.ParentChildTaskaRun");
-            DropTable("dbo.TaskaNotes");
+            DropIndex("dbo.TaskaRunChilds", new[] { "ChildTaskaRunId" });
+            DropIndex("dbo.TaskaRunChilds", new[] { "ParentTaskaRunId" });
+            DropIndex("dbo.TaskaRuns", new[] { "TaskaId" });
+            DropIndex("dbo.NoteRuns", new[] { "TaskaRunId" });
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");
             DropTable("dbo.AspNetUsers");
@@ -237,10 +220,12 @@ namespace TaskasWorkFlowApp.Migrations
             DropTable("dbo.AspNetRoles");
             DropTable("dbo.Parameters");
             DropTable("dbo.ParameterRuns");
-            DropTable("dbo.TaskaRuns");
+            DropTable("dbo.Notes");
             DropTable("dbo.TaskaChilds");
             DropTable("dbo.Taskas");
-            DropTable("dbo.Notes");
+            DropTable("dbo.TaskaRunChilds");
+            DropTable("dbo.TaskaRuns");
+            DropTable("dbo.NoteRuns");
         }
     }
 }

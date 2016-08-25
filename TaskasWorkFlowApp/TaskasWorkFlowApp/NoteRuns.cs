@@ -12,12 +12,12 @@ namespace TaskasWorkFlowApp
     using System;
     using System.Collections.Generic;
     
-    public partial class Notes
+    public partial class NoteRuns
     {
-        public int NoteId { get; set; }
+        public int NoteRunId { get; set; }
         public string NoteText { get; set; }
-        public int TaskaId { get; set; }
+        public int TaskaRunId { get; set; }
     
-        public virtual Taskas Taskas { get; set; }
+        public virtual TaskaRuns TaskaRuns { get; set; }
     }
 }

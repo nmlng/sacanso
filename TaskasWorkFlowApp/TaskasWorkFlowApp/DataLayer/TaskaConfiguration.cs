@@ -14,18 +14,6 @@ namespace TaskasWorkFlowApp.DataLayer
     public TaskaConfiguration()
     {
       Property(c => c.Id).HasColumnName("TaskaId");
-
-      //HasOptional(c => c.ChildTaskas)
-      //  .WithRequired();
-
-      // HasMany(c => c.ParenTaskas)
-      //.WithMany(c => c.ChildTaskas)
-      //.Map(m =>
-      //{
-      //  m.MapLeftKey("ChildTaskaId");
-      //  m.MapRightKey("ParentTaskaId");
-      //  m.ToTable("ParentChildTaska");
-      //});
     }
   }
 }

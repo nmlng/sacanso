@@ -17,10 +17,10 @@ namespace TaskasWorkFlowApp
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public TaskaRuns()
         {
+            this.NoteRuns = new HashSet<NoteRuns>();
             this.ParameterRuns = new HashSet<ParameterRuns>();
-            this.ParentChildTaskaRun = new HashSet<ParentChildTaskaRun>();
-            this.ParentChildTaskaRun1 = new HashSet<ParentChildTaskaRun>();
-            this.Notes = new HashSet<Notes>();
+            this.TaskaRunChilds = new HashSet<TaskaRunChilds>();
+            this.TaskaRunChilds1 = new HashSet<TaskaRunChilds>();
         }
     
         public int TaskaRunId { get; set; }
@@ -29,13 +29,13 @@ namespace TaskasWorkFlowApp
         public int TaskaId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<NoteRuns> NoteRuns { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ParameterRuns> ParameterRuns { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ParentChildTaskaRun> ParentChildTaskaRun { get; set; }
+        public virtual ICollection<TaskaRunChilds> TaskaRunChilds { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ParentChildTaskaRun> ParentChildTaskaRun1 { get; set; }
+        public virtual ICollection<TaskaRunChilds> TaskaRunChilds1 { get; set; }
         public virtual Taskas Taskas { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Notes> Notes { get; set; }
     }
 }

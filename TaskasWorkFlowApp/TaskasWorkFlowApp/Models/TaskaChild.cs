@@ -10,12 +10,16 @@ namespace TaskasWorkFlowApp.Models
 {
   public class TaskaChild
   {
+    [Required]
     public int Order { get; set; }
 
     public int ParentTaskaId { get; set; }
+    [Display(Name = "ParentTaska")]
     public virtual Taska ParentTaska { get; set; }
 
+
     public int ChildTaskaId { get; set; }
+    [Display(Name = "ChildTaska")]
     public virtual Taska ChildTaska { get; set; }
   }
 }

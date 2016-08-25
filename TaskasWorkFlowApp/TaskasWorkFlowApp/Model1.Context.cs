@@ -13,10 +13,10 @@ namespace TaskasWorkFlowApp
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class TaskasWorkFlowAppEntities2 : DbContext
+    public partial class TaskasWorkFlowAppEntities8 : DbContext
     {
-        public TaskasWorkFlowAppEntities2()
-            : base("name=TaskasWorkFlowAppEntities2")
+        public TaskasWorkFlowAppEntities8()
+            : base("name=TaskasWorkFlowAppEntities8")
         {
         }
     
@@ -30,11 +30,12 @@ namespace TaskasWorkFlowApp
         public virtual DbSet<AspNetUserClaims> AspNetUserClaims { get; set; }
         public virtual DbSet<AspNetUserLogins> AspNetUserLogins { get; set; }
         public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
+        public virtual DbSet<NoteRuns> NoteRuns { get; set; }
         public virtual DbSet<Notes> Notes { get; set; }
         public virtual DbSet<ParameterRuns> ParameterRuns { get; set; }
         public virtual DbSet<Parameters> Parameters { get; set; }
-        public virtual DbSet<ParentChildTaska> ParentChildTaska { get; set; }
-        public virtual DbSet<ParentChildTaskaRun> ParentChildTaskaRun { get; set; }
+        public virtual DbSet<TaskaChilds> TaskaChilds { get; set; }
+        public virtual DbSet<TaskaRunChilds> TaskaRunChilds { get; set; }
         public virtual DbSet<TaskaRuns> TaskaRuns { get; set; }
         public virtual DbSet<Taskas> Taskas { get; set; }
     }

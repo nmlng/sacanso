@@ -3,20 +3,20 @@ using TaskasWorkFlowApp.Models;
 
 namespace TaskasWorkFlowApp.Migrations
 {
-    using System;
-    using System.Data.Entity;
-    using System.Data.Entity.Migrations;
-    using System.Linq;
+  using System;
+  using System.Data.Entity;
+  using System.Data.Entity.Migrations;
+  using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<TaskasWorkFlowApp.Models.ApplicationDbContext>
+  internal sealed class Configuration : DbMigrationsConfiguration<TaskasWorkFlowApp.Models.ApplicationDbContext>
+  {
+    public Configuration()
     {
-        public Configuration()
-        {
-            AutomaticMigrationsEnabled = false;
-        }
+      AutomaticMigrationsEnabled = false;
+    }
 
-        protected override void Seed(TaskasWorkFlowApp.Models.ApplicationDbContext context)
-        {
+    protected override void Seed(TaskasWorkFlowApp.Models.ApplicationDbContext context)
+    {
       context.Taskas.AddOrUpdate(
             t => t.TaskaName,
             new Taska { TaskaName = "Taska1", Description = "Descreve-mos ", },
@@ -67,6 +67,9 @@ namespace TaskasWorkFlowApp.Migrations
           ChildTaska = taskaFilha2
         }
       };
+
+       //     context.Taskas.Remove(taskaMae);
+      // context.TaskaChilds.Remove(childTaska2);
 
     }
   }

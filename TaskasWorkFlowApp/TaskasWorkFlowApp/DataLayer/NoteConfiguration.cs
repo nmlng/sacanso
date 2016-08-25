@@ -15,24 +15,10 @@ namespace TaskasWorkFlowApp.DataLayer
     {
       Property(m => m.Id).HasColumnName("NoteId");
 
-      
-      HasMany(c => c.Taskas)
-     .WithMany(c => c.Notes)
-     .Map(m =>
-     {
-       m.MapLeftKey("NoteId");
-       m.MapRightKey("TaskaId");
-       m.ToTable("TaskaNotes");
-     });
 
-      HasMany(c => c.TaskasRuns)
-      .WithMany(c => c.Notes)
-      .Map(m =>
-      {
-        m.MapLeftKey("NoteId");
-        m.MapRightKey("TaskaRunId");
-        m.ToTable("TaskaRunNotes");
-      });
+      HasRequired(c => c.Taska)
+        .WithMany(c => c.Notes)
+        .WillCascadeOnDelete(false);
 
     }
   }
